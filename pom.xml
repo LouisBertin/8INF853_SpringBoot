@@ -57,6 +57,20 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>nl.geodienstencentrum.maven</groupId>
+                <artifactId>sass-maven-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <sassOptions>
+                        <always_update>true</always_update>
+                        <style>:compact</style>
+                    </sassOptions>
+                    <sassSourceDirectory>${project.basedir}/src/main/resources/sass</sassSourceDirectory>
+                    <destination>${project.basedir}/src/main/resources/static/css</destination>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
