@@ -13,10 +13,17 @@ import javax.persistence.Id;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    /*
+     * Id.
+     */
     private Integer id;
-
+    /**
+     * Name.
+     */
     private String name;
-
+    /**
+     * Email.
+     */
     private String email;
 
     /**

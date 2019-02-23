@@ -1,6 +1,6 @@
 {% extends "layouts/base" %}
 
 {% block content %}
-<h1> Home </h1>
-<p> Welcome to my home page. My name is {{ message }}</p>
+    <h1> Home </h1>
+    <p> Welcome to my home page. My name is {{ message }}</p>
 {% endblock %}
