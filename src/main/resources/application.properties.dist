@@ -1,8 +1,10 @@
 # Spring
 spring.cache.type=NONE
 
-# Database
-spring.jpa.hibernate.ddl-auto=update
+# Data Source
 spring.datasource.url=jdbc:mysql://localhost:3306/struts
 spring.datasource.username=root
 spring.datasource.password=struts
+
+# Hibernate
+spring.jpa.hibernate.ddl-auto=create-drop
