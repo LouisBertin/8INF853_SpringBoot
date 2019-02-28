@@ -37,6 +37,17 @@ public class WelcomeController {
     }
 
     /**
+     * Display all users.
+     */
+    @GetMapping("/users")
+    public String users(Model model) {
+        Iterable<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+
+        return "users";
+    }
+
+    /**
      * Add user form.
      *
      * @return the string

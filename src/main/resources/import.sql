@@ -1,0 +1,1 @@
+insert into user (name, email) values ("Amy Henderson", "ahenderson@gmail.com"), ("louis", "bertin.louis7@gmail.com");
