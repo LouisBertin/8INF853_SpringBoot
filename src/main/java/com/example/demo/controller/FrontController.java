@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
  * The type Welcome controller.
  */
 @Controller
-public class WelcomeController {
+public class FrontController {
     /**
      * UserRepository.
      */
     private UserRepository userRepository;
 
-    public WelcomeController(UserRepository userRepository) {
+    public FrontController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
