@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}">
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="col-md-12">
+    <form action="/adduser" method="post">
+        <p>Name: <input type="text" name="name" /></p>
+        <p>E-mail: <input type="text" name="email" /></p>
+        <p><input type="submit" value="Submit" />
+    </form>
+</div>
+
+</body>
+</html>

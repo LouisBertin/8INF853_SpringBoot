@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}">
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="col-md-12">
+    <h1>Hello World</h1>
+
+    <form name="logoutForm" th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+
+</body>
+</html>
