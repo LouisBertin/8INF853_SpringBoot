@@ -6,7 +6,9 @@
 <body>
 
 <div layout:fragment="content" class="col-md-12">
-    <p>deal with users here</p>
+    <th:block th:each="user : ${users}">
+        <li th:text="${user.email}">...</li>
+    </th:block>
 </div>
 
 </body>

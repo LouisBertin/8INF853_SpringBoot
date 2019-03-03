@@ -1,1 +1,2 @@
-insert into user (name, email) values ("Amy Henderson", "ahenderson@gmail.com"), ("louis", "bertin.louis7@gmail.com");
+insert into user (name, email, username, password) values ("louis", "bertin.louis7@gmail.com", "admin", "admin");
+insert into user (name, email, username, password) values ("test", "test@gmail.com", "test", "test");

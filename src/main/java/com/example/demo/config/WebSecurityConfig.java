@@ -1,14 +1,15 @@
 package com.example.demo.config;
 
+import com.example.demo.service.UserService;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 /**
  * The type Web security config.
@@ -16,6 +17,13 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    /**
+     * The User details service.
+     */
+    @Autowired
+    UserService userDetailsService;
+
     /**
      * Configure HttpSecurity
      */
@@ -28,6 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .authenticationProvider(getProvider())
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/hello")
@@ -36,19 +45,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/")
                 .permitAll();
+    }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
 
     /**
-     * Get User credentials.
+     * Gets provider.
      *
-     * @param auth the auth
-     * @throws Exception the exception
+     * @return the provider
      */
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("user").password("password").roles("USER");    }
+    @Bean
+    public AuthenticationProvider getProvider() {
+        AppAuthProvider provider = new AppAuthProvider();
+        provider.setUserDetailsService(userDetailsService);
+        return provider;
+    }
 
     /**
      * Enable Thymeleaf layout dialect.
