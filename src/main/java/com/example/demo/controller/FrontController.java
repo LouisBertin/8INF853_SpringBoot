@@ -46,10 +46,10 @@ public class FrontController {
      * @param model the model
      * @return the string
      */
-    @GetMapping("/hello")
+    @GetMapping("/dashboard")
     public String hello(Model model) {
 
-        return "hello";
+        return "dashboard";
     }
 
     /**

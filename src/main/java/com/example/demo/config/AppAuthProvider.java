@@ -25,10 +25,16 @@ public class AppAuthProvider extends DaoAuthenticationProvider {
         String name = auth.getName();
         String password = auth.getCredentials()
                 .toString();
+
         UserDetails user = userDetailsService.loadUserByUsername(name);
+        //TODO : use Bcrypt here
         if (user == null) {
             throw new BadCredentialsException("Username/Password does not match for " + auth.getPrincipal());
         }
+        if (!password.equals(user.getPassword())) {
+            throw new BadCredentialsException("Username/Password does not match for " + auth.getPrincipal());
+        }
+
         return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
     }
 

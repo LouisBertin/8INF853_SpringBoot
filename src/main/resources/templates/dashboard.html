@@ -6,7 +6,11 @@
 <body>
 
 <div layout:fragment="content" class="col-md-12">
-    <h1>Hello World</h1>
+    <h1>Dashboard here</h1>
+    <div th:switch="${#authentication.getPrincipal().getUsername()}">
+        <p th:case="'admin'">User is an administrator</p>
+        <p th:case="*">User is some other thing</p>
+    </div>
 
     <form name="logoutForm" th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
