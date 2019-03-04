@@ -7,8 +7,8 @@
 
 <div layout:fragment="content" class="col-md-12">
     <h1>Dashboard here</h1>
-    <div th:switch="${#authentication.getPrincipal().getUsername()}">
-        <p th:case="'admin'">User is an administrator</p>
+    <div th:switch="${#authentication.getPrincipal().getRole()}">
+        <p th:case="'ADMIN'">User role is : <span th:text="${#authentication.getPrincipal().getRole()}"></span></p>
         <p th:case="*">User is some other thing</p>
     </div>
 

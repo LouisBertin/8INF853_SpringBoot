@@ -30,6 +30,9 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
+    @OneToOne
+    private Role role;
+
     /**
      * Gets id.
      *
@@ -95,6 +98,11 @@ public class User implements UserDetails {
         return username;
     }
 
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
@@ -104,6 +112,11 @@ public class User implements UserDetails {
         return password;
     }
 
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
@@ -126,5 +139,23 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    /**
+     * Gets role.
+     *
+     * @return the role
+     */
+    public String getRole() {
+        return role.getName();
+    }
+
+    /**
+     * Sets role.
+     *
+     * @param role the role
+     */
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
