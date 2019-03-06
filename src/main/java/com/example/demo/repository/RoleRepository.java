@@ -1,4 +1,7 @@
 package com.example.demo.repository;
 
-public class RoleRepository {
+import com.example.demo.entity.Role;
+import org.springframework.data.repository.CrudRepository;
+
+public interface RoleRepository extends CrudRepository<Role, Integer> {
 }

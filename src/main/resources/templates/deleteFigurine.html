@@ -11,80 +11,68 @@
 
         </div>
         <div th:case="*">
-            <form th:action="@{/figurines/editFigurine/} + ${figurine_edit.id}" method="post">
+            <form th:object="${figurine_delete}" th:action="@{/figurines/deleteFigurine/} + ${figurine_delete.id}" th:method="delete">
                 <table>
                         <tr>
                             <td><label>Nom :</label></td>
-                            <td><input type="text" name="nom" th:value="${figurine_edit.nom}"></td>
+                            <td><label th:text="${figurine_delete.nom}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Description :</label></td>
-                            <td><input style="height:20px;" type="text" name="description" th:value="${figurine_edit.description}"></td>
+                            <td><label th:text="${figurine_delete.description}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Date de parution :</label></td>
-                            <td><input type="date" name="date_parution" th:value="${figurine_edit.date_parution}"></td>
+                            <td><label th:text="${figurine_delete.date_parution}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Référence :</label></td>
-                            <td><input type="text" name="reference" th:value="${figurine_edit.reference}"></td>
+                            <td><label th:text="${figurine_delete.reference}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Prix :</label></td>
-                            <td><input type="number" step="0.01" name="prix_ttc" th:value="${figurine_edit.prix_ttc}"></td>
+                            <td><label th:text="${figurine_delete.prix_ttc}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Exemplaires :</label></td>
-                            <td><input type="number" name="nb_exemplaires" th:value="${figurine_edit.nb_exemplaires}"></td>
+                            <td><label th:text="${figurine_delete.nb_exemplaires}"></label></td>
                         </tr>
 
                         <tr>
                             <td><label>Poids :</label></td>
-                            <td><input type="number" step="0.01"  name="poids" th:value="${figurine_edit.poids}"></td>
+                            <td><label th:text="${figurine_delete.poids}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Hauteur :</label></td>
-                            <td><input type="number" step="0.01" name="hauteur" th:value="${figurine_edit.hauteur}"></td>
+                            <td><label th:text="${figurine_delete.hauteur}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Longueur :</label></td>
-                            <td><input type="number" step="0.01"  name="longueur" th:value="${figurine_edit.longueur}"></td>
+                            <td><label th:text="${figurine_delete.longueur}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Largeur :</label></td>
-                            <td><input type="text" step="0.01" name="largeur" th:value="${figurine_edit.largeur}"></td>
+                            <td><label th:text="${figurine_delete.largeur}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Quantité en magasin :</label></td>
-                            <td><input type="number" name="quantite_magasin" th:value="${figurine_edit.quantite_magasin}"></td>
+                            <td><label th:text="${figurine_delete.quantite_magasin}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Quantité en stock :</label></td>
-                            <td><input type="number" name="quantite_stock" th:value="${figurine_edit.quantite_stock}"></td>
+                            <td><label th:text="${figurine_delete.quantite_stock}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Catégorie :</label></td>
-                            <td>
-                                <select name="categorie_name" th:value="${figurine_edit.categorie.nom}">
-                                    <th:block th:each="categorie : ${categories}">
-                                        <option th:text="${categorie.nom}">...</option>
-                                    </th:block>
-                                </select>
-                            </td>
+                            <td><label th:text="${figurine_delete.categorie.nom}"></label></td>
                         </tr>
                         <tr>
                             <td><label>Marque :</label></td>
-                            <td>
-                                <select name="marque_name" th:value="${figurine_edit.marque.nom}">
-                                    <th:block th:each="marque : ${marques}">
-                                        <option th:text="${marque.nom}">...</option>
-                                    </th:block>
-                                </select>
-                            </td>
+                            <td><label th:text="${figurine_delete.marque.nom}"></label></td>
                         </tr>
                 </table>
                 <br />
-                <input type="submit" value="Edit">
+                <input type="submit" value="Delete">
                 <br />
                 <a th:href="@{/figurines}"><input type="button" value="Back to previous page"></a>
             </form>

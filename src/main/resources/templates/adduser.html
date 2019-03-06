@@ -6,9 +6,16 @@
 <body>
 
 <div layout:fragment="content" class="col-md-12">
-    <form action="/adduser" method="post">
+    <form th:action=@{/adduser} method="post">
         <p>Name: <input type="text" name="name" /></p>
-        <p>E-mail: <input type="text" name="email" /></p>
+        <p>E-mail: <input type="text" name="email"/></p>
+        <p>Password : </p> <input type="password" name="password"/>
+        <p>Username : </p> <input type="text" name="username"/>
+        <select name="role_name">
+            <th:block th:each="role : ${roles}">
+                <option th:text="${role.name}">...</option>
+            </th:block>
+        </select>
         <p><input type="submit" value="Submit" />
     </form>
 </div>

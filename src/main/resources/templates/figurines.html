@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html layout:decorate="~{layouts/base}" xmlns:th="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Figurines</title>
 </head>
 <body>
-$END$
+
+<div layout:fragment="content" class="col-md-12">
+    <div th:switch="${#authentication.getPrincipal().getRole()}">
+        <div th:case="'ADMIN'">
+            <table>
+                <tr>
+                    <th style="text-align: center">Nom</th>
+                    <th style="text-align: center">Image</th>
+                    <th style="text-align: center">Quantité</th>
+                    <th style="text-align: center">Catégorie</th>
+                    <th style="text-align: center">Marque</th>
+                    <th style="text-align: center"></th>
+                    <th></th>
+                </tr>
+                <br/>
+                <th:block th:each="figurine : ${figurines}">
+                    <tr style="width:100%">
+                        <td style="width: 25%; text-align: center" th:text="${figurine.nom}"></td>
+                        <td style="width: 10%; text-align: center"><img th:src="'/uploads/' + ${figurine.image.id} + ${figurine.image.extension}" style="max-height: 150px"></td>
+                        <td style="width: 15%; text-align: center" th:text="${figurine.quantite_magasin + figurine.quantite_stock}"></td>
+                        <td style="width: 10%; text-align: center" th:text="${figurine.categorie.nom}"></td>
+                        <td style="width: 10%; text-align: center" th:text="${figurine.marque.nom}"></td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/editFigurine/} + ${figurine.id}"><input type="button" value="Edit"></a> </td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/deleteFigurine/} + ${figurine.id}"><input type="button" value="Delete"></a> </td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+        <div th:case="'WORKER'">
+            <table>
+                <tr>
+                    <th style="text-align: center">Nom</th>
+                    <th style="text-align: center">Image</th>
+                    <th style="text-align: center">Quantité</th>
+                    <th style="text-align: center">Catégorie</th>
+                    <th style="text-align: center">Marque</th>
+                    <th style="text-align: center"></th>
+                    <th></th>
+                </tr>
+                <br/>
+                <th:block th:each="figurine : ${figurines}">
+                    <tr style="width:100%">
+                        <td style="width: 25%; text-align: center" th:text="${figurine.nom}"></td>
+                        <td style="width: 10%; text-align: center"><img th:src="'/uploads/' + ${figurine.image.id} + ${figurine.image.extension}" style="max-height:150px"></td>
+                        <td style="width: 15%; text-align: center" th:text="${figurine.quantite_magasin + figurine.quantite_stock}"></td>
+                        <td style="width: 10%; text-align: center" th:text="${figurine.categorie.nom}"></td>
+                        <td style="width: 10%; text-align: center" th:text="${figurine.marque.nom}"></td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/editFigurine/} + ${figurine.id}"><input type="button" value="Edit"></a> </td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+        <div th:case="'CUSTOMER'">
+           <div class="row" style="padding-bottom: 50px;">
+               <th:block th:each="figurine : ${figurines}">
+                   <div class="col-md-4" style="height:300px">
+                       <div style="height: 200px">
+                           <img th:src="'/uploads/' + ${figurine.image.id} + ${figurine.image.extension}" style="max-height: 150px">
+                       </div>
+                       <div>
+                           <p th:text="${figurine.nom}" style="height: 20px"></p>
+                           <p th:text="${figurine.prix_ttc}" style="height: 20px"></p>
+                           <p th:text="${figurine.description}" style="height: 50px"></p>
+                           <a href=""><input type="button" value="Book"></a>
+                       </div>
+                   </div>
+               </th:block>
+           </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

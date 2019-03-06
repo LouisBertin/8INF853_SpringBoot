@@ -1,4 +1,7 @@
 package com.example.demo.repository;
 
-public interface FigurineRepository {
+import com.example.demo.entity.Figurine;
+import org.springframework.data.repository.CrudRepository;
+
+public interface FigurineRepository extends CrudRepository<Figurine, Integer> {
 }

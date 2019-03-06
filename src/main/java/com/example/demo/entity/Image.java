@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Categorie {
+public class Image {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -15,8 +15,8 @@ public class Categorie {
 
     private String nom;
 
-    @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
-    private Set<Figurine> figurines;
+    private String extension;
+
 
     public Integer getId() {
         return id;
@@ -34,12 +34,13 @@ public class Categorie {
         this.nom = nom;
     }
 
-    public Set<Figurine> getFigurines() {
-        return figurines;
+    public String getExtension() {
+        return extension;
     }
 
-    public void setFigurines(Set<Figurine> figurines) {
-        this.figurines = figurines;
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
 }
+

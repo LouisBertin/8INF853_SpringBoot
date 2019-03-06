@@ -1,4 +1,7 @@
 package com.example.demo.repository;
 
-public interface MarqueRepository {
+import com.example.demo.entity.Marque;
+import org.springframework.data.repository.CrudRepository;
+
+public interface MarqueRepository extends CrudRepository<Marque, Integer> {
 }

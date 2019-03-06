@@ -1,10 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html layout:decorate="~{layouts/base}">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Login</title>
 </head>
 <body>
-$END$
+<div layout:fragment="content" class="col-md-12">
+    <div th:switch="${#authentication.getPrincipal().getRole()}">
+        <div th:case="'CUSTOMER'">
+
+        </div>
+        <div th:case="*">
+            <form th:action="@{/figurines/addFigurine/}" method="post" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td><label>Nom :</label></td>
+                        <td><input type="text" name="nom"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Description :</label></td>
+                        <td><input style="height:100px;" type="text" name="description"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Date de parution :</label></td>
+                        <td><input type="date" name="date_parution"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Référence :</label></td>
+                        <td><input type="text" name="reference"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Prix :</label></td>
+                        <td><input type="number" step="0.01" name="prix_ttc"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Exemplaires :</label></td>
+                        <td><input type="number" name="nb_exemplaires"></td>
+                    </tr>
+
+                    <tr>
+                        <td><label>Poids :</label></td>
+                        <td><input type="number" step="0.01"  name="poids"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Hauteur :</label></td>
+                        <td><input type="number" step="0.01" name="hauteur"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Longueur :</label></td>
+                        <td><input type="number" step="0.01"  name="longueur"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Largeur :</label></td>
+                        <td><input type="number" step="0.01" name="largeur"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Quantité en magasin :</label></td>
+                        <td><input type="number" name="quantite_magasin"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Quantité en stock :</label></td>
+                        <td><input type="number" name="quantite_stock" ></td>
+                    </tr>
+                    <tr>
+                        <td><label>Catégorie :</label></td>
+                        <td>
+                            <select name="categorie_nom">
+                                <th:block th:each="categorie : ${categories}">
+                                    <option th:text="${categorie.nom}">...</option>
+                                </th:block>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Marque :</label></td>
+                        <td>
+                            <select name="marque_nom">
+                                <th:block th:each="marque : ${marques}">
+                                    <option th:text="${marque.nom}">...</option>
+                                </th:block>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Image : </label></td>
+                        <td><input type="file" name="UploadImage" accept="image/*"></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Add">
+                <br />
+                <a th:href="@{/figurines}"><input type="button" value="Back to previous page"></a>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
