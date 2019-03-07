@@ -17,6 +17,9 @@ public class Image {
 
     private String extension;
 
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
+    private Set<Figurine> figurines;
+
 
     public Integer getId() {
         return id;

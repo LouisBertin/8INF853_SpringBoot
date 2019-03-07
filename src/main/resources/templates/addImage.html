@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}">
+<head>
+    <title>Login</title>
+</head>
+<body>
+<div layout:fragment="content" class="col-md-12">
+    <div th:switch="${#authentication.getPrincipal().getRole()}">
+        <div th:case="'CUSTOMER'">
+
+        </div>
+        <div th:case="*">
+            <form th:action="@{/figurines/addImage/}" method="post" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td><label>Image : </label></td>
+                        <td><input type="file" name="UploadImage" accept="image/*"></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Add">
+                <br />
+                <a th:href="@{/figurines}"><input type="button" value="Back to previous page"></a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
