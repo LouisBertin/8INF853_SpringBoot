@@ -22,7 +22,7 @@
                 <th:block th:each="figurine : ${figurines}">
                     <tr style="width:100%">
                         <td style="width: 25%; text-align: center" th:text="${figurine.nom}"></td>
-                        <td style="width: 10%; text-align: center"><img th:src="'/uploads/' + ${figurine.image.id} + ${figurine.image.extension}" style="max-height: 150px"></td>
+                        <td style="width: 10%; text-align: center"><img th:src="'/uploads/' + ${figurine.id} + ${figurine.image.extension}" style="max-height: 150px"></td>
                         <td style="width: 15%; text-align: center" th:text="${figurine.quantite_magasin + figurine.quantite_stock}"></td>
                         <td style="width: 10%; text-align: center" th:text="${figurine.categorie.nom}"></td>
                         <td style="width: 10%; text-align: center" th:text="${figurine.marque.nom}"></td>
@@ -31,6 +31,7 @@
                     </tr>
                 </th:block>
             </table>
+            <a th:href="@{/figurines/addFigurine/}"><input type="button" value="Add"></a>
         </div>
         <div th:case="'WORKER'">
             <table>
@@ -47,7 +48,7 @@
                 <th:block th:each="figurine : ${figurines}">
                     <tr style="width:100%">
                         <td style="width: 25%; text-align: center" th:text="${figurine.nom}"></td>
-                        <td style="width: 10%; text-align: center"><img th:src="'/uploads/' + ${figurine.image.id} + ${figurine.image.extension}" style="max-height:150px"></td>
+                        <td style="width: 10%; text-align: center"><img th:src="'/uploads/' + ${figurine.id} + ${figurine.image.extension}" style="max-height:150px"></td>
                         <td style="width: 15%; text-align: center" th:text="${figurine.quantite_magasin + figurine.quantite_stock}"></td>
                         <td style="width: 10%; text-align: center" th:text="${figurine.categorie.nom}"></td>
                         <td style="width: 10%; text-align: center" th:text="${figurine.marque.nom}"></td>
@@ -55,13 +56,14 @@
                     </tr>
                 </th:block>
             </table>
+            <a th:href="@{/figurines/addFigurine/}"><input type="button" value="Add"></a>
         </div>
         <div th:case="'CUSTOMER'">
            <div class="row" style="padding-bottom: 50px;">
                <th:block th:each="figurine : ${figurines}">
                    <div class="col-md-4" style="height:300px">
                        <div style="height: 200px">
-                           <img th:src="'/uploads/' + ${figurine.image.id} + ${figurine.image.extension}" style="max-height: 150px">
+                           <img th:src="'/uploads/' + ${figurine.id} + ${figurine.image.extension}" style="max-height: 150px">
                        </div>
                        <div>
                            <p th:text="${figurine.nom}" style="height: 20px"></p>

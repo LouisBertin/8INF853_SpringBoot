@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <title>Figurines</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="col-md-12">
+    <div th:switch="${#authentication.getPrincipal().getRole()}">
+        <div th:case="'ADMIN'">
+            <table>
+                <tr>
+                    <th style="text-align: center">Nom</th>
+                    <th style="text-align: center"></th>
+                </tr>
+                <br/>
+                <th:block th:each="categorie_ : ${categories_}">
+                    <tr style="width:100%">
+                        <td style="width: 25%; text-align: center" th:text="${categorie_.nom}"></td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/categories/editCategorie/} + ${categorie_.id}"><input type="button" value="Edit"></a> </td>
+                    </tr>
+                </th:block>
+            </table>
+            <a th:href="@{/figurines/categories/addCategorie}"><input type="button" value="Add"></a>
+        </div>
+        <div th:case="'WORKER'">
+            <table>
+                <tr>
+                    <th style="text-align: center">Nom</th>
+                    <th style="text-align: center"></th>
+                </tr>
+                <br/>
+                <th:block th:each="categorie_ : ${categories_}">
+                    <tr style="width:100%">
+                        <td style="width: 25%; text-align: center" th:text="${categorie_.nom}"></td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/categories/editCategorie/} + ${categorie_.id}"><input type="button" value="Edit"></a> </td>
+                    </tr>
+                </th:block>
+            </table>
+            <a th:href="@{/figurines/marques/addMarque}"><input type="button" value="Add"></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

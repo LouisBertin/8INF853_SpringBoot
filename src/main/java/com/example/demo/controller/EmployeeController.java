@@ -61,11 +61,43 @@ public class EmployeeController {
                                      @RequestParam("poids") float poids,@RequestParam("prix_ttc") float prix,
                                      @RequestParam("nb_exemplaires") int nb_exemplaires, @RequestParam("quantite_magasin") int quantite_magasin,
                                      @RequestParam("quantite_stock") int quantite_stock, @RequestParam("date_parution") Date date_parution,
-                                     @RequestParam("marque_name") String marque_name){
+                                     @RequestParam("marque_name") String marque_name, @RequestParam("UploadNewImage") MultipartFile UploadImage){
 
         Figurine figurine = figurineRepository.findById(id).get();
         Iterable<Categorie> categories = categorieRepository.findAll();
         Iterable<Marque> marques = marqueRepository.findAll();
+
+        if(!UploadImage.isEmpty()){
+            String image_ [] = UploadImage.getOriginalFilename().split("\\.");
+
+            Image image = figurine.getImage();
+
+            Path image_path = Paths.get(uploadDirectory,figurine.getId()+image.getExtension());
+
+
+            image.setNom(image_[0]);
+            image.setExtension("."+image_[1]);
+
+            imageRepository.save(image);
+
+            String image_id = figurine.getId() + "." + image_[1];
+
+            StringBuilder filename = new StringBuilder();
+
+            Path new_imagePath = Paths.get(uploadDirectory,image_id);
+            filename.append(image_id);
+
+            try{
+                Files.delete(image_path);
+                Files.write(new_imagePath, UploadImage.getBytes());
+            }
+            catch(Exception e){
+
+            }
+
+            figurine.setImage(image);
+
+        }
 
         figurine.setHauteur(hauteur);
         figurine.setDate_parution(date_parution);
@@ -113,7 +145,7 @@ public class EmployeeController {
 
     @PostMapping(value="figurines/addFigurine")
     public String addFigurineSubmit(@ModelAttribute Figurine figurine, @ModelAttribute Image image, @RequestParam("categorie_nom") String categorie_nom,
-                                    @RequestParam("marque_nom") String marque_nom, @RequestParam("UploadImage") MultipartFile UploadImage, RedirectAttributes redirectAttributes){
+                                    @RequestParam("marque_nom") String marque_nom, @RequestParam("UploadImage") MultipartFile UploadImage){
 
         Iterable<Categorie> categories = categorieRepository.findAll();
         Iterable<Marque> marques = marqueRepository.findAll();
@@ -129,7 +161,7 @@ public class EmployeeController {
 
         imageRepository.save(image);
 
-        String image_id = image.getId() + "." + image_[1];
+        String image_id = figurine.getId() + "." + image_[1];
 
         StringBuilder filename = new StringBuilder();
 
@@ -164,5 +196,57 @@ public class EmployeeController {
             return "redirect:/figurines";
         }
 
-
+    @GetMapping(value="/figurines/categories/editCategorie/{id}")
+    public String editCategorie(@PathVariable("id") int id, Model model){
+        Categorie categorie = categorieRepository.findById(id).get();
+        model.addAttribute("categorie_edit", categorie);
+        return "editCategorie";
     }
+
+    @PostMapping(value="/figurines/categories/editCategorie/{id}")
+    public String editCategorieSubmit(@ModelAttribute Categorie categorie, @PathVariable("id") int id, Model model, @RequestParam("nom_categorie") String nom_categorie){
+        categorie.setNom(nom_categorie);
+        categorieRepository.save(categorie);
+        return "redirect:/figurines/categories";
+    }
+
+    @GetMapping(value="figurines/categories/addCategorie")
+    public String addCategorie(Model model){
+        model.addAttribute("new_categorie", new Categorie());
+        return "addCategorie";
+    }
+
+    @PostMapping(value="figurines/categories/addCategorie")
+    public String addCategorieSubmit(Model model, @ModelAttribute Categorie categorie){
+        categorieRepository.save(categorie);
+        return "redirect:/figurines/categories";
+    }
+
+    @GetMapping(value="/figurines/marques/editMarque/{id}")
+    public String editMarque(@PathVariable("id") int id, Model model){
+        Marque marque = marqueRepository.findById(id).get();
+        model.addAttribute("marque_edit", marque);
+        return "editMarque";
+    }
+
+    @PostMapping(value="/figurines/marques/editMarque/{id}")
+    public String editMarqueSubmit(@ModelAttribute Marque marque, @PathVariable("id") int id, Model model, @RequestParam("nom_marque") String nom_marque){
+        marque.setNom(nom_marque);
+        marqueRepository.save(marque);
+        return "redirect:/figurines/marques";
+    }
+
+    @GetMapping(value="figurines/marques/addMarque")
+    public String addMarque(Model model){
+        model.addAttribute("new_marque", new Marque());
+        return "addMarque";
+    }
+
+    @PostMapping(value="figurines/marques/addMarque")
+    public String addMarqueSubmit(Model model, @ModelAttribute Marque marque){
+        marqueRepository.save(marque);
+        return "redirect:/figurines/marques";
+    }
+
+
+}

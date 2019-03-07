@@ -70,6 +70,12 @@
                             <td><label>Marque :</label></td>
                             <td><label th:text="${figurine_delete.marque.nom}"></label></td>
                         </tr>
+                        <tr>
+                            <td><label>Image : </label></td>
+                            <td style="width: 10%; text-align: center">
+                                <img th:src="'/uploads/' + ${figurine_delete.id} + ${figurine_delete.image.extension}" style="max-height:150px">
+                            </td>
+                        </tr>
                 </table>
                 <br />
                 <input type="submit" value="Delete">

@@ -28,9 +28,21 @@ public class ClientController {
     }
 
     @GetMapping(value="/figurines")
-    public String userPage(Model model){
+    public String displayFigurines(Model model){
         model.addAttribute("figurines", figurineRepository.findAll());
         return "figurines";
+    }
+
+    @GetMapping(value="/figurines/categories")
+    public String displayCategories(Model model){
+        model.addAttribute("categories_", categorieRepository.findAll());
+        return "categories";
+    }
+
+    @GetMapping(value="/figurines/marques")
+    public String displayMarques(Model model){
+        model.addAttribute("marques_", marqueRepository.findAll());
+        return "marques";
     }
 
 }

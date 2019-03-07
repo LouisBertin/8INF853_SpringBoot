@@ -1,14 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.*;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.repository.FigurineRepository;
-import com.example.demo.repository.CategorieRepository;
-import com.example.demo.repository.MarqueRepository;
+import com.example.demo.repository.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @Controller
@@ -22,16 +22,19 @@ public class AdminController {
 
     private UserRepository userRepository;
 
+    private ImageRepository imageRepository;
+
     private ClientController clientController;
 
     private EmployeeController employeeController;
 
-    public  AdminController(FigurineRepository figurineRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ClientController clientController, EmployeeController employeeController){
+    public  AdminController(ImageRepository imageRepository, FigurineRepository figurineRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ClientController clientController, EmployeeController employeeController){
         this.userRepository= userRepository;
         this.figurineRepository = figurineRepository;
         this.categorieRepository = categorieRepository;
         this.marqueRepository = marqueRepository;
         this.clientController = clientController;
+        this.imageRepository = imageRepository;
         this.employeeController = employeeController;
     }
 
@@ -44,7 +47,17 @@ public class AdminController {
 
     @RequestMapping(value="/figurines/deleteFigurine/{id}")
     public String deleteFigurineSubmit(@PathVariable("id") int id,  Model model) {
+        Figurine figurine = figurineRepository.findById(id).get();
+        Image image = figurine.getImage();
+        Path image_path = Paths.get(employeeController.uploadDirectory,figurine.getId()+image.getExtension());
+        try{
+            Files.delete(image_path);
+        }
+        catch(Exception e){
+
+        }
         figurineRepository.deleteById(id);
+        imageRepository.deleteById(id);
         return "redirect:/figurines";
     }
 
