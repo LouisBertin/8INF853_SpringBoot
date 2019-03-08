@@ -57,7 +57,6 @@ public class AdminController {
 
         }
         figurineRepository.deleteById(id);
-        imageRepository.deleteById(id);
         return "redirect:/figurines";
     }
 
