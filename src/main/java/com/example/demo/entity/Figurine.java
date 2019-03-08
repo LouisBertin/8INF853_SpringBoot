@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Figurine {
@@ -44,9 +45,13 @@ public class Figurine {
     @JoinColumn
     private Marque marque;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Image image;
+
+    @OneToMany
+    private Set<Reservation> reservations;
+
 
     public Integer getId() {
         return id;
@@ -170,6 +175,14 @@ public class Figurine {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }
 

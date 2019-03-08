@@ -161,7 +161,7 @@ public class EmployeeController {
 
         imageRepository.save(image);
 
-        String image_id = figurine.getId() + "." + image_[1];
+        String image_id = image.getId() + "." + image_[1];
 
         StringBuilder filename = new StringBuilder();
 
@@ -246,6 +246,19 @@ public class EmployeeController {
     public String addMarqueSubmit(Model model, @ModelAttribute Marque marque){
         marqueRepository.save(marque);
         return "redirect:/figurines/marques";
+    }
+
+    @GetMapping(value="/figurines/categories")
+    public String displayCategories(Model model){
+        model.addAttribute("categories_", categorieRepository.findAll());
+        return "categories";
+    }
+
+    @GetMapping(value="/figurines/marques")
+    public String displayMarques(Model model){
+
+        model.addAttribute("marques_", marqueRepository.findAll());
+        return "marques";
     }
 
 

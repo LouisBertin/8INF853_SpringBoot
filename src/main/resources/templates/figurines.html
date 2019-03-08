@@ -61,7 +61,7 @@
         <div th:case="'CUSTOMER'">
            <div class="row" style="padding-bottom: 50px;">
                <th:block th:each="figurine : ${figurines}">
-                   <div class="col-md-4" style="height:300px">
+                   <div class="col-md-4" style="height:300px" th:if="${figurine.quantite_magasin + figurine.quantite_stock !=0}">
                        <div style="height: 200px">
                            <img th:src="'/uploads/' + ${figurine.id} + ${figurine.image.extension}" style="max-height: 150px">
                        </div>
