@@ -1,12 +1,19 @@
 package com.example.demo.controller;
 
-import com.example.demo.repository.UserRepository;
-import com.example.demo.repository.FigurineRepository;
-import com.example.demo.repository.CategorieRepository;
-import com.example.demo.repository.MarqueRepository;
+import com.example.demo.entity.Figurine;
+import com.example.demo.entity.Reservation;
+import com.example.demo.entity.User;
+import com.example.demo.repository.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 @Controller
@@ -20,29 +27,82 @@ public class ClientController {
 
     private UserRepository userRepository;
 
-    public  ClientController(FigurineRepository figurineRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository){
+    private ReservationRepository reservationRepository;
+
+    public  ClientController(FigurineRepository figurineRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ReservationRepository reservationRepository){
         this.userRepository= userRepository;
         this.figurineRepository = figurineRepository;
         this.categorieRepository = categorieRepository;
         this.marqueRepository = marqueRepository;
+        this.reservationRepository=reservationRepository;
     }
 
     @GetMapping(value="/figurines")
     public String displayFigurines(Model model){
+        Iterable<Reservation> reservations = reservationRepository.findAll();
+        /*for(Reservation reservation : reservations){
+            if(reservation.getDate_expiration().before(new Date(Calendar.getInstance().getTime().getTime()))){
+                reservation.getFigurine().setQuantite_stock(reservation.getFigurine().getQuantite_stock() + reservation.getQuantite());
+                reservationRepository.delete(reservation);
+            }
+        }*/
         model.addAttribute("figurines", figurineRepository.findAll());
         return "figurines";
     }
 
-    @GetMapping(value="/figurines/categories")
-    public String displayCategories(Model model){
-        model.addAttribute("categories_", categorieRepository.findAll());
-        return "categories";
+    @GetMapping(value="/figurines/reservation/{id}")
+    public String reserverFigurine(Model model, @PathVariable("id") int id){
+        Figurine figurine = figurineRepository.findById(id).get();
+        model.addAttribute("figurine_book",figurine);
+        return "reservation";
     }
 
-    @GetMapping(value="/figurines/marques")
-    public String displayMarques(Model model){
-        model.addAttribute("marques_", marqueRepository.findAll());
-        return "marques";
+    // #TO DO : Set la date à plus tard
+    @PostMapping(value="/figurines/reservation/{id}")
+    public String reserverFigurineSubmit(@PathVariable("id") int id, @RequestParam("quantite") int quantite){
+        Reservation reservation = new Reservation();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Figurine figurine = figurineRepository.findById(id).get();
+        Date date_expiration_ = new Date(Calendar.getInstance().getTime().getTime() + 7);
+        reservation.setUser(user);
+        System.err.println(date_expiration_);
+        reservation.setAchete(false);
+        reservation.setDate_expiration(date_expiration_);
+        reservation.setFigurine(figurine);
+        reservation.setQuantite(quantite);
+        reservation.setMontant(quantite*figurine.getPrix_ttc());
+        if(quantite > figurine.getQuantite_stock()){
+            quantite = quantite - figurine.getQuantite_stock();
+            figurine.setQuantite_stock(0);
+            figurine.setQuantite_magasin(figurine.getQuantite_magasin()-quantite);
+        }
+        else{
+            figurine.setQuantite_stock(figurine.getQuantite_stock()-quantite);
+        }
+        reservationRepository.save(reservation);
+        figurineRepository.save(figurine);
+        return "redirect:/figurines";
+    }
+
+
+    @GetMapping(value ="figurines/reservations")
+    public String afficherFigurine(Model model){
+        model.addAttribute("reservations", reservationRepository.findAll());
+        return "reservations";
+    }
+
+    @GetMapping(value = "figurines/reservation/cancel/{id}")
+    public String editReservation(@PathVariable("id")int id, Model model){
+        model.addAttribute("reservation_", reservationRepository.findById(id).get());
+        return "redirect:/figurines/reservations";
+    }
+
+    @PostMapping(value = "figurines/reservation/cancel/{id}")
+    public String cancelReservationSubmit(@PathVariable("id") int id){
+        Reservation reservation = reservationRepository.findById(id).get();
+        reservation.getFigurine().setQuantite_stock(reservation.getFigurine().getQuantite_stock() + reservation.getQuantite());
+        reservationRepository.deleteById(id);
+        return "redirect:/figurines/reservations";
     }
 
 }

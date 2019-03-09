@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Categorie;
-import com.example.demo.entity.Figurine;
-import com.example.demo.entity.Image;
-import com.example.demo.entity.Marque;
+import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,16 +28,19 @@ public class EmployeeController {
 
     private ClientController clientController;
 
+    private ReservationRepository reservationRepository;
+
     public static String uploadDirectory = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\uploads";
 
 
-    public  EmployeeController(FigurineRepository figurineRepository, ImageRepository imageRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ClientController clientController){
+    public  EmployeeController(ReservationRepository reservationRepository,FigurineRepository figurineRepository, ImageRepository imageRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ClientController clientController){
         this.userRepository= userRepository;
         this.figurineRepository = figurineRepository;
         this.categorieRepository = categorieRepository;
         this.marqueRepository = marqueRepository;
         this.clientController = clientController;
         this.imageRepository = imageRepository;
+        this.reservationRepository = reservationRepository;
     }
 
 
@@ -74,6 +74,9 @@ public class EmployeeController {
 
             Path image_path = Paths.get(uploadDirectory,figurine.getId()+image.getExtension());
 
+            if(!UploadImage.getContentType().equals("image/jpeg") && !UploadImage.getContentType().equals("image/png")){
+                return "redirect:/figurines/addFigurine";
+            }
 
             image.setNom(image_[0]);
             image.setExtension("."+image_[1]);
@@ -145,23 +148,26 @@ public class EmployeeController {
 
     @PostMapping(value="figurines/addFigurine")
     public String addFigurineSubmit(@ModelAttribute Figurine figurine, @ModelAttribute Image image, @RequestParam("categorie_nom") String categorie_nom,
-                                    @RequestParam("marque_nom") String marque_nom, @RequestParam("UploadImage") MultipartFile UploadImage){
+                                    @RequestParam("marque_nom") String marque_nom, @RequestParam("UploadImage") MultipartFile UploadImage, Model model){
 
         Iterable<Categorie> categories = categorieRepository.findAll();
         Iterable<Marque> marques = marqueRepository.findAll();
 
         Iterable<Figurine> figurines = figurineRepository.findAll();
 
-
         String image_ [] = UploadImage.getOriginalFilename().split("\\.");
 
+        if(!UploadImage.getContentType().equals("image/jpeg") && !UploadImage.getContentType().equals("image/png")){
+            System.err.println(UploadImage.getContentType());
+            return "redirect:/figurines/addFigurine";
+        }
 
         image.setNom(image_[0]);
         image.setExtension("."+image_[1]);
 
         imageRepository.save(image);
 
-        String image_id = figurine.getId() + "." + image_[1];
+        String image_id = image.getId() + "." + image_[1];
 
         StringBuilder filename = new StringBuilder();
 
@@ -246,6 +252,32 @@ public class EmployeeController {
     public String addMarqueSubmit(Model model, @ModelAttribute Marque marque){
         marqueRepository.save(marque);
         return "redirect:/figurines/marques";
+    }
+
+    @GetMapping(value="/figurines/categories")
+    public String displayCategories(Model model){
+        model.addAttribute("categories_", categorieRepository.findAll());
+        return "categories";
+    }
+
+    @GetMapping(value="/figurines/marques")
+    public String displayMarques(Model model){
+        model.addAttribute("marques_", marqueRepository.findAll());
+        return "marques";
+    }
+
+    @GetMapping(value = "figurines/reservation/edit/{id}")
+    public String editReservation(@PathVariable("id")int id, Model model){
+        model.addAttribute("reservation_", reservationRepository.findById(id).get());
+        return "redirect:/figurines/reservations";
+    }
+
+    @PostMapping(value="figurines/reservation/edit/{id}")
+    public String  editReservationSubmit(@PathVariable("id") int id){
+        Reservation reservation = reservationRepository.findById(id).get();
+        reservation.setAchete(true);
+        reservationRepository.save(reservation);
+        return "redirect:/figurines/reservations";
     }
 
 
