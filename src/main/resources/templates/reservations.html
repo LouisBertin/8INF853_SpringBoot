@@ -19,7 +19,7 @@
                 </tr>
                 <br/>
                 <th:block th:each="reservation : ${reservations}">
-                    <tr style="width:100%" th:if="${reservation.achete!=true and reservation.date_expiration.after(#dates.createNow())==true">
+                    <tr style="width:100%" th:if="${reservation.achete!=true">
                         <td style="width: 25%; text-align: center" th:text="${reservation.id}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.date_expiration}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.montant}"></td>
@@ -47,7 +47,7 @@
                 </tr>
                 <br/>
                 <th:block th:each="reservation : ${reservations}">
-                    <tr style="width:100%" th:if="${reservation.achete!=true and reservation.date_expiration.after(#dates.createNow())==true">
+                    <tr style="width:100%" th:if="${reservation.achete!=true">
                         <td style="width: 25%; text-align: center" th:text="${reservation.id}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.date_expiration}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.montant}"></td>
@@ -73,7 +73,7 @@
                     <th style="text-align: center"></th>
                 </tr>
             <th:block th:each="reservation : ${reservations}">
-                    <tr style="width:100%" th:if="${reservation.achete!=true and reservation.date_expiration.after(#dates.createNow())==true and #authentication.getPrincipal().getId() == reservation.user.id}">
+                    <tr style="width:100%" th:if="${reservation.achete!=true and #authentication.getPrincipal().getId() == reservation.user.id}">
                         <td style="width: 25%; text-align: center" th:text="${reservation.id}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.date_expiration}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.montant}"></td>

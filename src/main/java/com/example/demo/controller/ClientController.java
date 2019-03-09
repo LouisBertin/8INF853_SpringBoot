@@ -40,12 +40,12 @@ public class ClientController {
     @GetMapping(value="/figurines")
     public String displayFigurines(Model model){
         Iterable<Reservation> reservations = reservationRepository.findAll();
-        /*for(Reservation reservation : reservations){
+        for(Reservation reservation : reservations){
             if(reservation.getDate_expiration().before(new Date(Calendar.getInstance().getTime().getTime()))){
                 reservation.getFigurine().setQuantite_stock(reservation.getFigurine().getQuantite_stock() + reservation.getQuantite());
-                reservationRepository.delete(reservation);
+                //reservationRepository.delete(reservation);
             }
-        }*/
+        }
         model.addAttribute("figurines", figurineRepository.findAll());
         return "figurines";
     }
@@ -57,17 +57,24 @@ public class ClientController {
         return "reservation";
     }
 
-    // #TO DO : Set la date à plus tard
     @PostMapping(value="/figurines/reservation/{id}")
-    public String reserverFigurineSubmit(@PathVariable("id") int id, @RequestParam("quantite") int quantite){
+    public String reserverFigurineSubmit(@PathVariable("id") int id, @RequestParam("quantite") int quantite, Model model){
         Reservation reservation = new Reservation();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Figurine figurine = figurineRepository.findById(id).get();
-        Date date_expiration_ = new Date(Calendar.getInstance().getTime().getTime() + 7);
+        Calendar date_expiration_ = Calendar.getInstance();
+        date_expiration_.add(Calendar.DATE,7);
+        java.util.Date date = date_expiration_.getTime();
         reservation.setUser(user);
-        System.err.println(date_expiration_);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 7);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        String formater = format.format(cal.getTime());
+
+        Date date1 = Date.valueOf(formater);
+        reservation.setDate_expiration(date1);
         reservation.setAchete(false);
-        reservation.setDate_expiration(date_expiration_);
         reservation.setFigurine(figurine);
         reservation.setQuantite(quantite);
         reservation.setMontant(quantite*figurine.getPrix_ttc());
@@ -100,7 +107,7 @@ public class ClientController {
     @PostMapping(value = "figurines/reservation/cancel/{id}")
     public String cancelReservationSubmit(@PathVariable("id") int id){
         Reservation reservation = reservationRepository.findById(id).get();
-        reservation.getFigurine().setQuantite_stock(reservation.getFigurine().getQuantite_stock() + reservation.getQuantite());
+        reservation.getFigurine().setQuantite_magasin(reservation.getFigurine().getQuantite_magasin() + reservation.getQuantite());
         reservationRepository.deleteById(id);
         return "redirect:/figurines/reservations";
     }
