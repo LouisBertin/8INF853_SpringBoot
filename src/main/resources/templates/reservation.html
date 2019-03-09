@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <title>Figurines</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="col-md-12">
+    <div th:switch="${#authentication.getPrincipal().getRole()}">
+        <div th:case="'CUSTOMER'">
+            <form th:action="@{/figurines/reservation/} + ${figurine_book.id}" method="post">
+                <label>Quantité : </label>
+                <input type="number" name="quantite" min="1" th:max="${figurine_book.quantite_magasin + figurine_book.quantite_stock}" required>
+                <input type="submit" value="Book">
+            </form>
+            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page"></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

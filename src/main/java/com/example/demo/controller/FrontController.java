@@ -92,7 +92,7 @@ public class FrontController {
      */
     @GetMapping("/adduser")
     public String adduser(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user_", new User());
         Iterable<Role> roles = roleRepository.findAll();
 
         model.addAttribute("roles",roles);

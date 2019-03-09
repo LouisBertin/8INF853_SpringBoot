@@ -2,6 +2,9 @@ package com.example.demo.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.util.Set;
 
 /**
  * The type Role.
@@ -17,6 +20,7 @@ public class Role {
      * Name.
      */
     private String name;
+
 
     /**
      * Gets id.
@@ -53,4 +57,5 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+
 }

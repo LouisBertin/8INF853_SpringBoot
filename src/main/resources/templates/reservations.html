@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <title>Figurines</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="col-md-12">
+    <div th:switch="${#authentication.getPrincipal().getRole()}">
+        <div th:case="'ADMIN'">
+            <table>
+                <tr>
+                    <th style="text-align: center">Numéro de réservation</th>
+                    <th style="text-align: center">Date d'expiration</th>
+                    <th style="text-align: center">Montant</th>
+                    <th style="text-align: center">Client</th>
+                    <th style="text-align: center"></th>
+                </tr>
+                <br/>
+                <th:block th:each="reservation : ${reservations}">
+                    <tr style="width:100%" th:if="${reservation.achete!=true and reservation.date_expiration.after(#dates.createNow())==true}">
+                        <td style="width: 25%; text-align: center" th:text="${reservation.id}"></td>
+                        <td style="width: 25%; text-align: center" th:text="${reservation.date_expiration}"></td>
+                        <td style="width: 25%; text-align: center" th:text="${reservation.montant}"></td>
+                        <td style="width: 25%; text-align: center" th:text="${reservation.user.name}"></td>
+                        <td>
+                            <form th:action="@{/figurines/reservation/edit/} + ${reservation.id}" method="post">
+                                <input type="submit" value="Edit">
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+            <a th:href="@{/figurines}"><input type="submit" value="Back to previous page"></a>
+        </div>
+        <div th:case="'WORKER'">
+            <table>
+                <tr>
+                    <th style="text-align: center">Numéro de réservation</th>
+                    <th style="text-align: center">Date d'expiration</th>
+                    <th style="text-align: center">Montant</th>
+                    <th style="text-align: center">Client</th>
+                    <th style="text-align: center"></th>
+                </tr>
+                <br/>
+                <th:block th:each="reservation : ${reservations}">
+                    <tr style="width:100%" th:if="${reservation.achete!=true and reservation.date_expiration.after(#dates.createNow())==true and #authentication.getPrincipal().getId() == reservation.user.id}">
+                        <td style="width: 25%; text-align: center" th:text="${reservation.id}"></td>
+                        <td style="width: 25%; text-align: center" th:text="${reservation.date_expiration}"></td>
+                        <td style="width: 25%; text-align: center" th:text="${reservation.montant}"></td>
+                        <td style="width: 25%; text-align: center" th:text="${reservation.user.name}"></td>
+                        <td>
+                            <form th:action="@{/figurines/reservation/edit/} + ${reservation.id}" method="post">
+                                <input type="submit" value="Edit">
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page"></a>
+        </div>
+        <div th:case="'CUSTOMER'">
+            <table>
+                <tr>
+                    <th style="text-align: center">Numéro de réservation</th>
+                    <th style="text-align: center">Date d'expiration</th>
+                    <th style="text-align: center">Montant</th>
+                    <th style="text-align: center"></th>
+                </tr>
+            <th:block th:each="reservation : ${reservations}">
+                    <tr style="width:100%" th:if="${reservation.achete!=true and reservation.date_expiration.after(#dates.createNow())==true and #authentication.getPrincipal().getId() == reservation.user.id}">
+                        <td style="width: 25%; text-align: center" th:text="${reservation.id}"></td>
+                        <td style="width: 25%; text-align: center" th:text="${reservation.date_expiration}"></td>
+                        <td style="width: 25%; text-align: center" th:text="${reservation.montant}"></td>
+                        <td>
+                            <form th:action="@{/figurines/reservation/cancel/} + ${reservation.id}" method="post">
+                                <input type="submit" value="Cancel">
+                             </form>
+                        </td>
+                    </tr>
+                </table>
+            </th:block>
+            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page"></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
