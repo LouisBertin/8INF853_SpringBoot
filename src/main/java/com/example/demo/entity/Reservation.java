@@ -19,9 +19,23 @@ public class Reservation {
 
     private float montant;
 
+    private int quantite;
+
     @ManyToOne
     @JoinColumn
     private  Figurine figurine;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @ManyToOne
+    @JoinColumn
+    private User user;
 
     public Integer getId() {
         return id;
@@ -29,6 +43,14 @@ public class Reservation {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
     }
 
     public boolean isAchete() {

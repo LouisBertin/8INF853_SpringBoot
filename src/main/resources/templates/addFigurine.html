@@ -14,57 +14,57 @@
                 <table>
                     <tr>
                         <td><label>Nom :</label></td>
-                        <td><input type="text" name="nom"></td>
+                        <td><input type="text" name="nom" required></td>
                     </tr>
                     <tr>
                         <td><label>Description :</label></td>
-                        <td><input style="height:100px;" type="text" name="description"></td>
+                        <td><input style="height:100px;" type="text" name="description" required></td>
                     </tr>
                     <tr>
                         <td><label>Date de parution :</label></td>
-                        <td><input type="date" name="date_parution"></td>
+                        <td><input type="date" name="date_parution" required></td>
                     </tr>
                     <tr>
                         <td><label>Référence :</label></td>
-                        <td><input type="text" name="reference"></td>
+                        <td><input type="text" name="reference" required></td>
                     </tr>
                     <tr>
                         <td><label>Prix :</label></td>
-                        <td><input type="number" step="0.01" name="prix_ttc"></td>
+                        <td><input type="number" step="0.01" name="prix_ttc" required></td>
                     </tr>
                     <tr>
                         <td><label>Exemplaires :</label></td>
-                        <td><input type="number" name="nb_exemplaires"></td>
+                        <td><input type="number" name="nb_exemplaires" required></td>
                     </tr>
 
                     <tr>
                         <td><label>Poids :</label></td>
-                        <td><input type="number" step="0.01"  name="poids"></td>
+                        <td><input type="number" step="0.01"  name="poids" required></td>
                     </tr>
                     <tr>
                         <td><label>Hauteur :</label></td>
-                        <td><input type="number" step="0.01" name="hauteur"></td>
+                        <td><input type="number" step="0.01" name="hauteur" required></td>
                     </tr>
                     <tr>
                         <td><label>Longueur :</label></td>
-                        <td><input type="number" step="0.01"  name="longueur"></td>
+                        <td><input type="number" step="0.01"  name="longueur" required></td>
                     </tr>
                     <tr>
                         <td><label>Largeur :</label></td>
-                        <td><input type="number" step="0.01" name="largeur"></td>
+                        <td><input type="number" step="0.01" name="largeur" required></td>
                     </tr>
                     <tr>
                         <td><label>Quantité en magasin :</label></td>
-                        <td><input type="number" name="quantite_magasin"></td>
+                        <td><input type="number" name="quantite_magasin" required></td>
                     </tr>
                     <tr>
                         <td><label>Quantité en stock :</label></td>
-                        <td><input type="number" name="quantite_stock" ></td>
+                        <td><input type="number" name="quantite_stock" required></td>
                     </tr>
                     <tr>
                         <td><label>Catégorie :</label></td>
                         <td>
-                            <select name="categorie_nom">
+                            <select name="categorie_nom" required>
                                 <th:block th:each="categorie : ${categories}">
                                     <option th:text="${categorie.nom}">...</option>
                                 </th:block>
@@ -74,7 +74,7 @@
                     <tr>
                         <td><label>Marque :</label></td>
                         <td>
-                            <select name="marque_nom">
+                            <select name="marque_nom" required>
                                 <th:block th:each="marque : ${marques}">
                                     <option th:text="${marque.nom}">...</option>
                                 </th:block>
@@ -83,7 +83,7 @@
                     </tr>
                     <tr>
                         <td><label>Image : </label></td>
-                        <td><input type="file" name="UploadImage" accept="image/*" value="Select an image"></td>
+                        <td><input type="file" name="UploadImage" accept="image/*" value="Select an image" required></td>
                     </tr>
                 </table>
                 <br />

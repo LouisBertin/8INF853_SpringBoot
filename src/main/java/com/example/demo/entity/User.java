@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 
 /**
@@ -33,6 +34,8 @@ public class User implements UserDetails {
     @OneToOne
     private Role role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Reservation> reservations;
     /**
      * Gets id.
      *
@@ -157,5 +160,13 @@ public class User implements UserDetails {
      */
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

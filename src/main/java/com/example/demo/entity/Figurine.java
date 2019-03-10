@@ -45,7 +45,7 @@ public class Figurine {
     @JoinColumn
     private Marque marque;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private Image image;
 

@@ -32,6 +32,9 @@
                 </th:block>
             </table>
             <a th:href="@{/figurines/addFigurine/}"><input type="button" value="Add"></a>
+            <a th:href="@{/figurines/categories/}"><input type="button" value="Categories"></a>
+            <a th:href="@{/figurines/marques/}"><input type="button" value="Marques"></a>
+            <a th:href="@{/figurines/reservations/}"><input type="button" value="Réservations"></a>
         </div>
         <div th:case="'WORKER'">
             <table>
@@ -57,6 +60,9 @@
                 </th:block>
             </table>
             <a th:href="@{/figurines/addFigurine/}"><input type="button" value="Add"></a>
+            <a th:href="@{/figurines/categories/}"><input type="button" value="Categories"></a>
+            <a th:href="@{/figurines/marques/}"><input type="button" value="Marques"></a>
+            <a th:href="@{/figurines/reservations/}"><input type="button" value="Réservations"></a>
         </div>
         <div th:case="'CUSTOMER'">
            <div class="row" style="padding-bottom: 50px;">
@@ -65,11 +71,14 @@
                        <div style="height: 200px">
                            <img th:src="'/uploads/' + ${figurine.id} + ${figurine.image.extension}" style="max-height: 150px">
                        </div>
-                       <div>
+                       <div th:if="${figurine.quantite_magasin + figurine.quantite_stock !=0}">
                            <p th:text="${figurine.nom}" style="height: 20px"></p>
                            <p th:text="${figurine.prix_ttc}" style="height: 20px"></p>
                            <p th:text="${figurine.description}" style="height: 50px"></p>
-                           <a href=""><input type="button" value="Book"></a>
+                           <form th:action="@{/figurines/reservation/} + ${figurine.id}" method="get">
+                               <input type="submit" value="Book">
+                           </form>
+                           <a th:href="@{/figurines/reservations/}"><input type="button" value="Réservations"></a>
                        </div>
                    </div>
                </th:block>
