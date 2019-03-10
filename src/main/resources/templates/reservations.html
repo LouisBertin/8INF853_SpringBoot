@@ -19,7 +19,7 @@
                 </tr>
                 <br/>
                 <th:block th:each="reservation : ${reservations}">
-                    <tr style="width:100%" th:if="${reservation.achete!=true">
+                    <tr style="width:100%" th:if="${reservation.achete!=true}">
                         <td style="width: 25%; text-align: center" th:text="${reservation.id}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.date_expiration}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.montant}"></td>
@@ -47,7 +47,7 @@
                 </tr>
                 <br/>
                 <th:block th:each="reservation : ${reservations}">
-                    <tr style="width:100%" th:if="${reservation.achete!=true">
+                    <tr style="width:100%" th:if="${reservation.achete!=true}">
                         <td style="width: 25%; text-align: center" th:text="${reservation.id}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.date_expiration}"></td>
                         <td style="width: 25%; text-align: center" th:text="${reservation.montant}"></td>

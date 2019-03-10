@@ -158,7 +158,6 @@ public class EmployeeController {
         String image_ [] = UploadImage.getOriginalFilename().split("\\.");
 
         if(!UploadImage.getContentType().equals("image/jpeg") && !UploadImage.getContentType().equals("image/png")){
-            System.err.println(UploadImage.getContentType());
             return "redirect:/figurines/addFigurine";
         }
 

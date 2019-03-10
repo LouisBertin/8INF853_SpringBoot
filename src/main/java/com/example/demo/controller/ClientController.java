@@ -43,7 +43,7 @@ public class ClientController {
         for(Reservation reservation : reservations){
             if(reservation.getDate_expiration().before(new Date(Calendar.getInstance().getTime().getTime()))){
                 reservation.getFigurine().setQuantite_stock(reservation.getFigurine().getQuantite_stock() + reservation.getQuantite());
-                //reservationRepository.delete(reservation);
+                reservationRepository.delete(reservation);
             }
         }
         model.addAttribute("figurines", figurineRepository.findAll());
