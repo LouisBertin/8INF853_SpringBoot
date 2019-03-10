@@ -7,7 +7,7 @@
 
 <div layout:fragment="content" class="col-md-12">
     <div th:if = "${param.error}">
-        Invalid username and password.
+        <p class="text-danger">Invalid username and password.</p>
     </div>
     <div th:if = "${param.logout}">
         You have been logged out.
@@ -21,7 +21,7 @@
             <label> Password: <input type="password" name="password"/> </label>
         </div>
         <div>
-            <input type = "submit" value = "Sign In"/>
+            <input class="btn btn-outline-primary" type="submit" value="Sign In"/>
         </div>
     </form>
 </div>

@@ -11,10 +11,6 @@
         <p th:case="'ADMIN'">User role is : <span th:text="${#authentication.getPrincipal().getRole()}"></span></p>
         <p th:case="*">User is some other thing</p>
     </div>
-
-    <form name="logoutForm" th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
 </div>
 
 </body>
