@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<div layout:fragment="content" class="col-md-12">
+<div layout:fragment="content" class="col-md-6 mx-auto">
     <div th:if = "${param.error}">
         <p class="text-danger">Invalid username and password.</p>
     </div>
@@ -14,11 +14,13 @@
     </div>
 
     <form th:action="@{/login}" method="post">
-        <div>
-            <label> User Name : <input type="text" name="username"/> </label>
+        <div class="form-group">
+            <label>User Name</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter username">
         </div>
-        <div>
-            <label> Password: <input type="password" name="password"/> </label>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter password"/>
         </div>
         <div>
             <input class="btn btn-outline-primary" type="submit" value="Sign In"/>

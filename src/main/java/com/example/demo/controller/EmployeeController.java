@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,7 +49,7 @@ public class EmployeeController {
         model.addAttribute("figurine_edit", figurine);
         model.addAttribute("categories", categorieRepository.findAll());
         model.addAttribute("marques", marqueRepository.findAll());
-        return "editFigurine";
+        return "figurines/editFigurine";
     }
 
     @PostMapping(value="/figurines/editFigurine/{id}")
@@ -143,7 +142,7 @@ public class EmployeeController {
         model.addAttribute("categories", categorieRepository.findAll());
         model.addAttribute("marques", marqueRepository.findAll());
 
-        return "addFigurine";
+        return "figurines/addFigurine";
     }
 
     @PostMapping(value="figurines/addFigurine")
@@ -205,7 +204,7 @@ public class EmployeeController {
     public String editCategorie(@PathVariable("id") int id, Model model){
         Categorie categorie = categorieRepository.findById(id).get();
         model.addAttribute("categorie_edit", categorie);
-        return "editCategorie";
+        return "figurines/editCategorie";
     }
 
     @PostMapping(value="/figurines/categories/editCategorie/{id}")
@@ -218,7 +217,7 @@ public class EmployeeController {
     @GetMapping(value="figurines/categories/addCategorie")
     public String addCategorie(Model model){
         model.addAttribute("new_categorie", new Categorie());
-        return "addCategorie";
+        return "figurines/addCategorie";
     }
 
     @PostMapping(value="figurines/categories/addCategorie")
@@ -231,7 +230,7 @@ public class EmployeeController {
     public String editMarque(@PathVariable("id") int id, Model model){
         Marque marque = marqueRepository.findById(id).get();
         model.addAttribute("marque_edit", marque);
-        return "editMarque";
+        return "figurines/editMarque";
     }
 
     @PostMapping(value="/figurines/marques/editMarque/{id}")
@@ -244,7 +243,7 @@ public class EmployeeController {
     @GetMapping(value="figurines/marques/addMarque")
     public String addMarque(Model model){
         model.addAttribute("new_marque", new Marque());
-        return "addMarque";
+        return "figurines/addMarque";
     }
 
     @PostMapping(value="figurines/marques/addMarque")
@@ -256,13 +255,13 @@ public class EmployeeController {
     @GetMapping(value="/figurines/categories")
     public String displayCategories(Model model){
         model.addAttribute("categories_", categorieRepository.findAll());
-        return "categories";
+        return "figurines/categories";
     }
 
     @GetMapping(value="/figurines/marques")
     public String displayMarques(Model model){
         model.addAttribute("marques_", marqueRepository.findAll());
-        return "marques";
+        return "figurines/marques";
     }
 
     @GetMapping(value = "figurines/reservation/edit/{id}")

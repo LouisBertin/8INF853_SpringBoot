@@ -28,7 +28,7 @@ public class AdminController {
 
     private EmployeeController employeeController;
 
-    public  AdminController(ImageRepository imageRepository, FigurineRepository figurineRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ClientController clientController, EmployeeController employeeController){
+    public AdminController(ImageRepository imageRepository, FigurineRepository figurineRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ClientController clientController, EmployeeController employeeController){
         this.userRepository= userRepository;
         this.figurineRepository = figurineRepository;
         this.categorieRepository = categorieRepository;
@@ -42,7 +42,7 @@ public class AdminController {
     public String deleteFigurine(@PathVariable("id") int id,  Model model){
         Figurine figurine = figurineRepository.findById(id).get();
         model.addAttribute("figurine_delete",figurine);
-        return "deleteFigurine";
+        return "figurines/deleteFigurine";
     }
 
     @RequestMapping(value="/figurines/deleteFigurine/{id}")
