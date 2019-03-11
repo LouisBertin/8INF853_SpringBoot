@@ -32,6 +32,7 @@ Vous pouvez utiliser le fichier `./db/mysql_init/schema.sql` pour hydrater votre
 
 ## Stack technique
 
+> Projet
 * Spring Boot - 2.1.2
 * Tomcat - 9.0.14
 * Hibernate Core - 5.3.7
@@ -39,3 +40,8 @@ Vous pouvez utiliser le fichier `./db/mysql_init/schema.sql` pour hydrater votre
 * Thymeleaf - 2.1.2
 * Thymeleaf Layout Dialect - 2.3.0
 * Sass maven plugin - 3.7.1
+
+> Outils de développement
+* Git - 2.21
+* Docker - 18.09.2
+* Intellij Ultimate - 2018.3.1
