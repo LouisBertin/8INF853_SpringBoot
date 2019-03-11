@@ -29,3 +29,13 @@ Cela permet aux collaborateurs d'avoir le même environnement de travail : plus 
 
 Utiliser Laragon, Wamp, Mamp ou Linux Subsystem sur Windows, créer la base `struts`
 Vous pouvez utiliser le fichier `./db/mysql_init/schema.sql` pour hydrater votre bdd
+
+## Stack technique
+
+* Spring Boot - 2.1.2
+* Tomcat - 9.0.14
+* Hibernate Core - 5.3.7
+* Bootstrap - 4.3.1
+* Thymeleaf - 2.1.2
+* Thymeleaf Layout Dialect - 2.3.0
+* Sass maven plugin - 3.7.1
