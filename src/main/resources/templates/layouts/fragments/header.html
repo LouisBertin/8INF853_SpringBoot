@@ -10,10 +10,16 @@
 
             <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
                th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
+               th:href="@{/figurines}">Figurines</a>
+            <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
+               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
                th:href="@{/figurines/categories}">Categories</a>
             <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
                th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
-               th:href="@{/figurines}">Figurines</a>
+               th:href="@{/figurines/marques/}">Brands</a>
+            <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
+               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
+               th:href="@{/figurines/reservations/}">Réservations</a>
 
             <a class="p-2 text-dark" th:href="@{/dashboard}" sec:authorize="isFullyAuthenticated()">Dashboard</a>
         </nav>

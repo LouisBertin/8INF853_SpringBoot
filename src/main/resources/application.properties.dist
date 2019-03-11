@@ -9,5 +9,8 @@ spring.datasource.password=struts
 # Hibernate
 spring.jpa.hibernate.ddl-auto=create-drop
 
+# Resources
 spring.resources.static-locations[0]=file:src/main/resources/static/
 spring.resources.static-locations[1]=classpath:/static/
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
