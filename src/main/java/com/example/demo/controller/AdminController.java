@@ -11,33 +11,34 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
+/**
+ * The type Admin controller.
+ */
 @Controller
 public class AdminController {
 
     private FigurineRepository figurineRepository;
 
-    private CategorieRepository categorieRepository;
-
-    private MarqueRepository marqueRepository;
-
-    private UserRepository userRepository;
-
-    private ImageRepository imageRepository;
-
-    private ClientController clientController;
-
     private EmployeeController employeeController;
 
-    public AdminController(ImageRepository imageRepository, FigurineRepository figurineRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ClientController clientController, EmployeeController employeeController){
-        this.userRepository= userRepository;
+    /**
+     * Instantiates a new Admin controller.
+     *
+     * @param figurineRepository the figurine repository
+     * @param employeeController the employee controller
+     */
+    public AdminController(FigurineRepository figurineRepository, EmployeeController employeeController){
         this.figurineRepository = figurineRepository;
-        this.categorieRepository = categorieRepository;
-        this.marqueRepository = marqueRepository;
-        this.clientController = clientController;
-        this.imageRepository = imageRepository;
         this.employeeController = employeeController;
     }
 
+    /**
+     * Delete figurine string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="/figurines/deleteFigurine/{id}")
     public String deleteFigurine(@PathVariable("id") int id,  Model model){
         Figurine figurine = figurineRepository.findById(id).get();
@@ -45,6 +46,13 @@ public class AdminController {
         return "figurines/deleteFigurine";
     }
 
+    /**
+     * Delete figurine submit string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @RequestMapping(value="/figurines/deleteFigurine/{id}")
     public String deleteFigurineSubmit(@PathVariable("id") int id,  Model model) {
         Figurine figurine = figurineRepository.findById(id).get();

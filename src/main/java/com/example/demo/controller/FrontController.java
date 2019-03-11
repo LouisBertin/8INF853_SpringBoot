@@ -23,6 +23,12 @@ public class FrontController {
         return "front/index";
     }
 
+    /**
+     * About string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/about")
     public String about(Model model) {
         return "front/about";

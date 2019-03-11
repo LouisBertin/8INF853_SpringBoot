@@ -15,27 +15,33 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
+/**
+ * The type Client controller.
+ */
 @Controller
 public class ClientController {
 
     private FigurineRepository figurineRepository;
 
-    private CategorieRepository categorieRepository;
-
-    private MarqueRepository marqueRepository;
-
-    private UserRepository userRepository;
-
     private ReservationRepository reservationRepository;
 
-    public  ClientController(FigurineRepository figurineRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ReservationRepository reservationRepository){
-        this.userRepository= userRepository;
+    /**
+     * Instantiates a new Client controller.
+     *
+     * @param figurineRepository    the figurine repository
+     * @param reservationRepository the reservation repository
+     */
+    public  ClientController(FigurineRepository figurineRepository, ReservationRepository reservationRepository){
         this.figurineRepository = figurineRepository;
-        this.categorieRepository = categorieRepository;
-        this.marqueRepository = marqueRepository;
         this.reservationRepository=reservationRepository;
     }
 
+    /**
+     * Display figurines string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="/figurines")
     public String displayFigurines(Model model){
         Iterable<Reservation> reservations = reservationRepository.findAll();
@@ -49,6 +55,13 @@ public class ClientController {
         return "figurines";
     }
 
+    /**
+     * Reserver figurine string.
+     *
+     * @param model the model
+     * @param id    the id
+     * @return the string
+     */
     @GetMapping(value="/figurines/reservation/{id}")
     public String reserverFigurine(Model model, @PathVariable("id") int id){
         Figurine figurine = figurineRepository.findById(id).get();
@@ -56,6 +69,14 @@ public class ClientController {
         return "reservation";
     }
 
+    /**
+     * Reserver figurine submit string.
+     *
+     * @param id       the id
+     * @param quantite the quantite
+     * @param model    the model
+     * @return the string
+     */
     @PostMapping(value="/figurines/reservation/{id}")
     public String reserverFigurineSubmit(@PathVariable("id") int id, @RequestParam("quantite") int quantite, Model model){
         Reservation reservation = new Reservation();
@@ -91,18 +112,37 @@ public class ClientController {
     }
 
 
+    /**
+     * Afficher figurine string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value ="figurines/reservations")
     public String afficherFigurine(Model model){
         model.addAttribute("reservations", reservationRepository.findAll());
         return "reservations";
     }
 
+    /**
+     * Edit reservation string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value = "figurines/reservation/cancel/{id}")
     public String editReservation(@PathVariable("id")int id, Model model){
         model.addAttribute("reservation_", reservationRepository.findById(id).get());
         return "redirect:/figurines/reservations";
     }
 
+    /**
+     * Cancel reservation submit string.
+     *
+     * @param id the id
+     * @return the string
+     */
     @PostMapping(value = "figurines/reservation/cancel/{id}")
     public String cancelReservationSubmit(@PathVariable("id") int id){
         Reservation reservation = reservationRepository.findById(id).get();

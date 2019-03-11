@@ -47,21 +47,6 @@ public class UserController {
     }
 
     /**
-     * Display all users.
-     *
-     * @param model the model
-     * @return the string
-     */
-    @GetMapping("/users")
-    public String users(Model model) {
-        Iterable<User> users = userRepository.findAll();
-
-        model.addAttribute("users", users);
-
-        return "user/users";
-    }
-
-    /**
      * Add user form.
      *
      * @param model the model

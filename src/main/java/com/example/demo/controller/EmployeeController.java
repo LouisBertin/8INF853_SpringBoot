@@ -12,6 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
 
+/**
+ * The type Employee controller.
+ */
 @Controller
 public class EmployeeController {
 
@@ -21,28 +24,41 @@ public class EmployeeController {
 
     private MarqueRepository marqueRepository;
 
-    private UserRepository userRepository;
-
     private ImageRepository imageRepository;
-
-    private ClientController clientController;
 
     private ReservationRepository reservationRepository;
 
+    /**
+     * The constant uploadDirectory.
+     */
     public static String uploadDirectory = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\uploads";
 
 
-    public  EmployeeController(ReservationRepository reservationRepository,FigurineRepository figurineRepository, ImageRepository imageRepository, UserRepository userRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository, ClientController clientController){
-        this.userRepository= userRepository;
+    /**
+     * Instantiates a new Employee controller.
+     *
+     * @param reservationRepository the reservation repository
+     * @param figurineRepository    the figurine repository
+     * @param imageRepository       the image repository
+     * @param marqueRepository      the marque repository
+     * @param categorieRepository   the categorie repository
+     */
+    public  EmployeeController(ReservationRepository reservationRepository,FigurineRepository figurineRepository, ImageRepository imageRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository){
         this.figurineRepository = figurineRepository;
         this.categorieRepository = categorieRepository;
         this.marqueRepository = marqueRepository;
-        this.clientController = clientController;
         this.imageRepository = imageRepository;
         this.reservationRepository = reservationRepository;
     }
 
 
+    /**
+     * Edit figurine string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="/figurines/editFigurine/{id}")
     public String editFigurine(@PathVariable("id") int id, Model model){
         Figurine figurine = figurineRepository.findById(id).get();
@@ -52,6 +68,27 @@ public class EmployeeController {
         return "figurines/editFigurine";
     }
 
+    /**
+     * Submit edit figurine string.
+     *
+     * @param id               the id
+     * @param categorie_name   the categorie name
+     * @param reference        the reference
+     * @param nom              the nom
+     * @param description      the description
+     * @param hauteur          the hauteur
+     * @param largeur          the largeur
+     * @param longueur         the longueur
+     * @param poids            the poids
+     * @param prix             the prix
+     * @param nb_exemplaires   the nb exemplaires
+     * @param quantite_magasin the quantite magasin
+     * @param quantite_stock   the quantite stock
+     * @param date_parution    the date parution
+     * @param marque_name      the marque name
+     * @param UploadImage      the upload image
+     * @return the string
+     */
     @PostMapping(value="/figurines/editFigurine/{id}")
     public String submitEditFigurine(@PathVariable("id") int id, @RequestParam("categorie_name") String categorie_name,
                                      @RequestParam("reference") String reference, @RequestParam("nom") String nom,
@@ -136,6 +173,12 @@ public class EmployeeController {
 
     }
 
+    /**
+     * Add figurine string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="figurines/addFigurine")
     public String addFigurine(Model model){
         model.addAttribute("new_figurine", new Figurine());
@@ -145,6 +188,17 @@ public class EmployeeController {
         return "figurines/addFigurine";
     }
 
+    /**
+     * Add figurine submit string.
+     *
+     * @param figurine      the figurine
+     * @param image         the image
+     * @param categorie_nom the categorie nom
+     * @param marque_nom    the marque nom
+     * @param UploadImage   the upload image
+     * @param model         the model
+     * @return the string
+     */
     @PostMapping(value="figurines/addFigurine")
     public String addFigurineSubmit(@ModelAttribute Figurine figurine, @ModelAttribute Image image, @RequestParam("categorie_nom") String categorie_nom,
                                     @RequestParam("marque_nom") String marque_nom, @RequestParam("UploadImage") MultipartFile UploadImage, Model model){
@@ -200,6 +254,13 @@ public class EmployeeController {
             return "redirect:/figurines";
         }
 
+    /**
+     * Edit categorie string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="/figurines/categories/editCategorie/{id}")
     public String editCategorie(@PathVariable("id") int id, Model model){
         Categorie categorie = categorieRepository.findById(id).get();
@@ -207,6 +268,15 @@ public class EmployeeController {
         return "figurines/editCategorie";
     }
 
+    /**
+     * Edit categorie submit string.
+     *
+     * @param categorie     the categorie
+     * @param id            the id
+     * @param model         the model
+     * @param nom_categorie the nom categorie
+     * @return the string
+     */
     @PostMapping(value="/figurines/categories/editCategorie/{id}")
     public String editCategorieSubmit(@ModelAttribute Categorie categorie, @PathVariable("id") int id, Model model, @RequestParam("nom_categorie") String nom_categorie){
         categorie.setNom(nom_categorie);
@@ -214,18 +284,38 @@ public class EmployeeController {
         return "redirect:/figurines/categories";
     }
 
+    /**
+     * Add categorie string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="figurines/categories/addCategorie")
     public String addCategorie(Model model){
         model.addAttribute("new_categorie", new Categorie());
         return "figurines/addCategorie";
     }
 
+    /**
+     * Add categorie submit string.
+     *
+     * @param model     the model
+     * @param categorie the categorie
+     * @return the string
+     */
     @PostMapping(value="figurines/categories/addCategorie")
     public String addCategorieSubmit(Model model, @ModelAttribute Categorie categorie){
         categorieRepository.save(categorie);
         return "redirect:/figurines/categories";
     }
 
+    /**
+     * Edit marque string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="/figurines/marques/editMarque/{id}")
     public String editMarque(@PathVariable("id") int id, Model model){
         Marque marque = marqueRepository.findById(id).get();
@@ -233,6 +323,15 @@ public class EmployeeController {
         return "figurines/editMarque";
     }
 
+    /**
+     * Edit marque submit string.
+     *
+     * @param marque     the marque
+     * @param id         the id
+     * @param model      the model
+     * @param nom_marque the nom marque
+     * @return the string
+     */
     @PostMapping(value="/figurines/marques/editMarque/{id}")
     public String editMarqueSubmit(@ModelAttribute Marque marque, @PathVariable("id") int id, Model model, @RequestParam("nom_marque") String nom_marque){
         marque.setNom(nom_marque);
@@ -240,36 +339,74 @@ public class EmployeeController {
         return "redirect:/figurines/marques";
     }
 
+    /**
+     * Add marque string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="figurines/marques/addMarque")
     public String addMarque(Model model){
         model.addAttribute("new_marque", new Marque());
         return "figurines/addMarque";
     }
 
+    /**
+     * Add marque submit string.
+     *
+     * @param model  the model
+     * @param marque the marque
+     * @return the string
+     */
     @PostMapping(value="figurines/marques/addMarque")
     public String addMarqueSubmit(Model model, @ModelAttribute Marque marque){
         marqueRepository.save(marque);
         return "redirect:/figurines/marques";
     }
 
+    /**
+     * Display categories string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="/figurines/categories")
     public String displayCategories(Model model){
         model.addAttribute("categories_", categorieRepository.findAll());
         return "figurines/categories";
     }
 
+    /**
+     * Display marques string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value="/figurines/marques")
     public String displayMarques(Model model){
         model.addAttribute("marques_", marqueRepository.findAll());
         return "figurines/marques";
     }
 
+    /**
+     * Edit reservation string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value = "figurines/reservation/edit/{id}")
     public String editReservation(@PathVariable("id")int id, Model model){
         model.addAttribute("reservation_", reservationRepository.findById(id).get());
         return "redirect:/figurines/reservations";
     }
 
+    /**
+     * Edit reservation submit string.
+     *
+     * @param id the id
+     * @return the string
+     */
     @PostMapping(value="figurines/reservation/edit/{id}")
     public String  editReservationSubmit(@PathVariable("id") int id){
         Reservation reservation = reservationRepository.findById(id).get();
@@ -277,6 +414,5 @@ public class EmployeeController {
         reservationRepository.save(reservation);
         return "redirect:/figurines/reservations";
     }
-
 
 }
