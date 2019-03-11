@@ -4,6 +4,7 @@ insert into role (id, name) values (3, "ADMIN");
 
 insert into user (name, email, username, password, role_id) values ("louis", "bertin.louis7@gmail.com", "admin", "admin", 3);
 insert into user (name, email, username, password, role_id) values ("test", "test@gmail.com", "test", "test", 1);
+insert into user (name, email, username, password, role_id) values ("worker", "test@gmail.com", "worker", "worker", 2);
 
 insert into categorie (nom) values ("Disney");
 insert into categorie (nom) values ("Super-Héros");

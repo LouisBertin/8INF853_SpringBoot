@@ -9,17 +9,20 @@
             <a class="p-2 text-dark" th:href="@{/about}">About</a>
 
             <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
+               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN') || #authentication.getPrincipal().getRole().equals('WORKER')}"
                th:href="@{/figurines}">Figurines</a>
             <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
+               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN') || #authentication.getPrincipal().getRole().equals('WORKER')}"
                th:href="@{/figurines/categories}">Categories</a>
             <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
+               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN') || #authentication.getPrincipal().getRole().equals('WORKER')}"
                th:href="@{/figurines/marques/}">Brands</a>
             <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
+               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN') || #authentication.getPrincipal().getRole().equals('WORKER')}"
                th:href="@{/figurines/reservations/}">Réservations</a>
+            <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
+               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
+               th:href="@{/register}">Add user</a>
 
             <a class="p-2 text-dark" th:href="@{/dashboard}" sec:authorize="isFullyAuthenticated()">Dashboard</a>
         </nav>

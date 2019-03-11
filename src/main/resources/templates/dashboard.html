@@ -6,6 +6,11 @@
 <body>
 
 <div layout:fragment="content" class="col-md-12">
+    <div th:if="${!successRegister.isEmpty()}">
+        <div class="alert alert-success" role="alert" >
+            <span th:text="${successRegister}"></span>
+        </div>
+    </div>
     <h1>Dashboard here</h1>
     <div th:switch="${#authentication.getPrincipal().getRole()}">
         <p th:case="'ADMIN'">User role is : <span th:text="${#authentication.getPrincipal().getRole()}"></span></p>

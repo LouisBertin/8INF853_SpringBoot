@@ -7,6 +7,7 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -41,7 +42,7 @@ public class UserController {
      * @return the string
      */
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
+    public String dashboard(Model model,  @ModelAttribute("successRegister") final String some) {
 
         return "dashboard";
     }
@@ -52,14 +53,14 @@ public class UserController {
      * @param model the model
      * @return the string
      */
-    @GetMapping("/adduser")
+    @GetMapping("/register")
     public String adduser(Model model) {
         model.addAttribute("user_", new User());
         Iterable<Role> roles = roleRepository.findAll();
 
         model.addAttribute("roles",roles);
 
-        return "user/adduser";
+        return "user/register";
     }
 
     /**
@@ -68,9 +69,10 @@ public class UserController {
      * @param user the user
      * @return the string
      */
-    @PostMapping("/adduser")
-    @ResponseBody
-    public String greetingSubmit(@ModelAttribute User user, @RequestParam("role_name") String role1) {
+    @PostMapping("/register")
+    public String greetingSubmit(@ModelAttribute User user,
+                                 @RequestParam("role_name") String role1,
+                                 RedirectAttributes rm) {
         if (!user.getName().isEmpty() && !user.getEmail().isEmpty()) {
             for(Role role : roleRepository.findAll()){
                 if(role.getName().equals(role1)){
@@ -79,7 +81,9 @@ public class UserController {
                 }
             }
             userRepository.save(user);
-            return "Name : " + user.getName();
+            rm.addAttribute("successRegister", "Account created!");
+
+            return "redirect:/dashboard";
         }
 
         return "Result";
