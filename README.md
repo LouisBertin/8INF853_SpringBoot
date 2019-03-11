@@ -39,6 +39,7 @@ Vous pouvez utiliser le fichier `./db/mysql_init/schema.sql` pour hydrater votre
 * Bootstrap - 4.3.1
 * Thymeleaf - 2.1.2
 * Thymeleaf Layout Dialect - 2.3.0
+* Thymeleaf Extras SpringSecurity 5 - 3.0.4
 * Sass maven plugin - 3.7.1
 
 > Outils de développement

@@ -7,8 +7,9 @@
 
 <div layout:fragment="content" class="col-md-12">
     <div th:switch="${#authentication.getPrincipal().getRole()}">
+
         <div th:case="'ADMIN'">
-            <table>
+            <table class="table">
                 <tr>
                     <th style="text-align: center">Numéro de réservation</th>
                     <th style="text-align: center">Date d'expiration</th>
@@ -33,10 +34,11 @@
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page"></a>
+            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page" class="btn btn-outline-dark"></a>
         </div>
+
         <div th:case="'WORKER'">
-            <table>
+            <table class="table">
                 <tr>
                     <th style="text-align: center">Numéro de réservation</th>
                     <th style="text-align: center">Date d'expiration</th>
@@ -61,10 +63,11 @@
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page"></a>
+            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page" class="btn btn-outline-dark"></a>
         </div>
+
         <div th:case="'CUSTOMER'">
-            <table>
+            <table class="table">
                 <tr>
                     <th style="text-align: center">Numéro de réservation</th>
                     <th style="text-align: center">Date d'expiration</th>
@@ -84,9 +87,9 @@
                              </form>
                         </td>
                     </tr>
-                </table>
-            </th:block>
-            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page"></a>
+                </th:block>
+            </table>
+            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page" class="btn btn-outline-dark"></a>
         </div>
     </div>
 </div>

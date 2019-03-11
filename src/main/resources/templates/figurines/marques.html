@@ -7,8 +7,12 @@
 
 <div layout:fragment="content" class="col-md-12">
     <div th:switch="${#authentication.getPrincipal().getRole()}">
+
         <div th:case="'ADMIN'">
-            <table>
+            <a th:href="@{/figurines/marques/addMarque}" class="float-right">
+                <input type="button" value="Add" class="btn btn-success"></a>
+            <br>
+            <table class="table">
                 <tr>
                     <th style="text-align: center">Nom</th>
                     <th style="text-align: center"></th>
@@ -17,15 +21,18 @@
                 <th:block th:each="marque_ : ${marques_}">
                     <tr style="width:100%">
                         <td style="width: 25%; text-align: center" th:text="${marque_.nom}"></td>
-                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/marques/editMarque/} + ${marque_.id}"><input type="button" value="Edit"></a> </td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/marques/editMarque/} + ${marque_.id}">
+                            <input type="button" value="Edit" class="btn btn-info"></a> </td>
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/marques/addMarque}"><input type="button" value="Add"></a>
-            <a th:href="@{/figurines/}"><input type="button" value="Figurines"></a>
         </div>
+
         <div th:case="'WORKER'">
-            <table>
+            <a th:href="@{/figurines/marques/addMarque}" class="float-right">
+                <input type="button" value="Add" class="btn btn-success"></a>
+            <br>
+            <table class="table">
                 <tr>
                     <th style="text-align: center">Nom</th>
                     <th style="text-align: center"></th>
@@ -34,12 +41,11 @@
                 <th:block th:each="marque_ : ${marques_}">
                     <tr style="width:100%">
                         <td style="width: 25%; text-align: center" th:text="${marque_.nom}"></td>
-                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/marques/editMarque/} + ${marque_.id}"><input type="button" value="Edit"></a> </td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/marques/editMarque/} + ${marque_.id}">
+                            <input type="button" value="Edit" class="btn btn-info"></a> </td>
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/marques/addMarque}"><input type="button" value="Add"></a>
-            <a th:href="@{/figurines/}"><input type="button" value="Figurines"></a>
         </div>
     </div>
 </div>

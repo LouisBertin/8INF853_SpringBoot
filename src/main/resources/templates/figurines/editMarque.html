@@ -11,17 +11,16 @@
 
         </div>
         <div th:case="*">
+            <h1>Edit brand</h1>
             <form th:action="@{/figurines/marques/editMarque/} + ${marque_edit.id}" method="post">
-                <table>
-                        <tr>
-                            <td><label>Nom :</label></td>
-                            <td><input type="text" name="nom_marque" th:value="${marque_edit.nom}"></td>
-                        </tr>
-                    <tr>
-                        <td><input type="submit" value="Edit"></td>
-                        <td><a th:href="@{/figurines/marques}"><input type="button" value="Back to previous page"></a></td>
-                    </tr>
-                </table>
+                <div class="form-group">
+                    <label>Name :</label>
+                    <input type="text" name="nom_marque" th:value="${marque_edit.nom}" class="form-control" placeholder="enter name">
+                </div>
+                <input type="submit" value="Edit" class="btn btn-success">
+                <a th:href="@{/figurines/marques}">
+                    <input type="button" value="Back to previous page" class="btn btn-outline-dark">
+                </a>
             </form>
         </div>
     </div>

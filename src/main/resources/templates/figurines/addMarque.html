@@ -4,20 +4,19 @@
     <title>Login</title>
 </head>
 <body>
-<div layout:fragment="content" class="col-md-12">
+<div layout:fragment="content" class="col-md-6 mx-auto">
     <div th:switch="${#authentication.getPrincipal().getRole()}">
         <div th:case="'CUSTOMER'">
 
         </div>
         <div th:case="*">
+            <h1>Add Brand</h1>
             <form th:action="@{/figurines/marques/addMarque}" method="post">
-                <table>
-                    <tr>
-                        <td><label>Nom :</label></td>
-                        <td><input type="text" name="nom" required></td>
-                    </tr>
-                </table>
-                <input type="submit" value="Add">
+                <div class="form-group">
+                    <label>Name :</label>
+                    <input type="text" name="nom" required class="form-control" placeholder="enter name">
+                </div>
+                <input type="submit" value="Add" class="btn btn-success">
             </form>
         </div>
     </div>
