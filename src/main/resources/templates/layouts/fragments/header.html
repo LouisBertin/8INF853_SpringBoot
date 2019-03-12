@@ -8,20 +8,15 @@
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" th:href="@{/about}">About</a>
 
-            <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN') || #authentication.getPrincipal().getRole().equals('WORKER')}"
+            <a class="p-2 text-dark" sec:authorize="hasAuthority('ADMIN') || hasAuthority('WORKER')"
                th:href="@{/figurines}">Figurines</a>
-            <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN') || #authentication.getPrincipal().getRole().equals('WORKER')}"
+            <a class="p-2 text-dark" sec:authorize="hasAuthority('ADMIN') || hasAuthority('WORKER')"
                th:href="@{/figurines/categories}">Categories</a>
-            <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN') || #authentication.getPrincipal().getRole().equals('WORKER')}"
+            <a class="p-2 text-dark" sec:authorize="hasAuthority('ADMIN') || hasAuthority('WORKER')"
                th:href="@{/figurines/marques/}">Brands</a>
-            <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN') || #authentication.getPrincipal().getRole().equals('WORKER')}"
+            <a class="p-2 text-dark" sec:authorize="hasAuthority('ADMIN') || hasAuthority('WORKER')"
                th:href="@{/figurines/reservations/}">Réservations</a>
-            <a class="p-2 text-dark" sec:authorize="isFullyAuthenticated()"
-               th:if="${#authentication.getPrincipal().getRole().equals('ADMIN')}"
+            <a class="p-2 text-dark" sec:authorize="hasAuthority('ADMIN')"
                th:href="@{/register}">Add user</a>
 
             <a class="p-2 text-dark" th:href="@{/dashboard}" sec:authorize="isFullyAuthenticated()">Dashboard</a>
