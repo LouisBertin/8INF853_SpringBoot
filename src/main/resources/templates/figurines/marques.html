@@ -22,7 +22,12 @@
                     <tr style="width:100%">
                         <td style="width: 25%; text-align: center" th:text="${marque_.nom}"></td>
                         <td style="width: 10%;text-align: center"><a th:href="@{/figurines/marques/editMarque/} + ${marque_.id}">
-                            <input type="button" value="Edit" class="btn btn-info"></a> </td>
+                            <input type="button" value="Edit" class="btn btn-info"></a></td>
+                        <td style="width: 10%; text-align: center">
+                            <form th:object="${marque_}" th:action="@{/figurines/marques/delete/} + ${marque_.id}" th:method="delete">
+                                <input type="submit" value="Delete"  class="btn btn-info">
+                            </form>
+                        </td>
                     </tr>
                 </th:block>
             </table>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -201,7 +202,7 @@ public class EmployeeController {
      */
     @PostMapping(value="figurines/addFigurine")
     public String addFigurineSubmit(@ModelAttribute Figurine figurine, @ModelAttribute Image image, @RequestParam("categorie_nom") String categorie_nom,
-                                    @RequestParam("marque_nom") String marque_nom, @RequestParam("UploadImage") MultipartFile UploadImage, Model model){
+                                    @RequestParam("marque_nom") String marque_nom, @RequestParam("UploadImage") MultipartFile UploadImage, Model model,  RedirectAttributes rm){
 
         Iterable<Categorie> categories = categorieRepository.findAll();
         Iterable<Marque> marques = marqueRepository.findAll();
@@ -211,6 +212,8 @@ public class EmployeeController {
         String image_ [] = UploadImage.getOriginalFilename().split("\\.");
 
         if(!UploadImage.getContentType().equals("image/jpeg") && !UploadImage.getContentType().equals("image/png")){
+            rm.addAttribute("incorrectType", "Incorrect type of file!");
+            System.err.println(rm.toString());
             return "redirect:/figurines/addFigurine";
         }
 

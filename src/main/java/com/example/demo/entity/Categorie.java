@@ -15,7 +15,7 @@ public class Categorie {
 
     private String nom;
 
-    @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categorie", cascade = CascadeType.REMOVE)
     private Set<Figurine> figurines;
 
     public Integer getId() {

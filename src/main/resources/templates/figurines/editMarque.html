@@ -15,7 +15,7 @@
             <form th:action="@{/figurines/marques/editMarque/} + ${marque_edit.id}" method="post">
                 <div class="form-group">
                     <label>Name :</label>
-                    <input type="text" name="nom_marque" th:value="${marque_edit.nom}" class="form-control" placeholder="enter name">
+                    <input type="text" name="nom_marque" th:value="${marque_edit.nom}" class="form-control" placeholder="enter name" required>
                 </div>
                 <input type="submit" value="Edit" class="btn btn-success">
                 <a th:href="@{/figurines/marques}">

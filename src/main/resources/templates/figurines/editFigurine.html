@@ -12,60 +12,60 @@
         </div>
         <div th:case="*">
             <form th:action="@{/figurines/editFigurine/} + ${figurine_edit.id}" method="post" enctype="multipart/form-data">
-                <table>
+                <table class="table">
                         <tr>
                             <td><label>Nom :</label></td>
-                            <td><input type="text" name="nom" th:value="${figurine_edit.nom}"></td>
+                            <td><input type="text" name="nom" class="form-control" th:value="${figurine_edit.nom}" required></td>
                         </tr>
                         <tr>
                             <td><label>Description :</label></td>
-                            <td><input style="height:100px;" type="text" name="description" th:value="${figurine_edit.description}"></td>
+                            <td><input style="height:100px;" type="text" name="description" class="form-control" th:value="${figurine_edit.description}" required></td>
                         </tr>
                         <tr>
                             <td><label>Date de parution :</label></td>
-                            <td><input type="date" name="date_parution" th:value="${figurine_edit.date_parution}"></td>
+                            <td><input type="date" name="date_parution" class="form-control" th:value="${figurine_edit.date_parution}" required></td>
                         </tr>
                         <tr>
                             <td><label>Référence :</label></td>
-                            <td><input type="text" name="reference" th:value="${figurine_edit.reference}"></td>
+                            <td><input type="text" name="reference" class="form-control" th:value="${figurine_edit.reference}" required></td>
                         </tr>
                         <tr>
                             <td><label>Prix :</label></td>
-                            <td><input type="number" step="0.01" name="prix_ttc" th:value="${figurine_edit.prix_ttc}"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="prix_ttc" th:value="${figurine_edit.prix_ttc}" required></td>
                         </tr>
                         <tr>
                             <td><label>Exemplaires :</label></td>
-                            <td><input type="number" name="nb_exemplaires" th:value="${figurine_edit.nb_exemplaires}"></td>
+                            <td><input type="number" name="nb_exemplaires" class="form-control" th:value="${figurine_edit.nb_exemplaires}" required></td>
                         </tr>
 
                         <tr>
                             <td><label>Poids :</label></td>
-                            <td><input type="number" step="0.01"  name="poids" th:value="${figurine_edit.poids}"></td>
+                            <td><input type="number" step="0.01"  name="poids" class="form-control" th:value="${figurine_edit.poids}" required></td>
                         </tr>
                         <tr>
                             <td><label>Hauteur :</label></td>
-                            <td><input type="number" step="0.01" name="hauteur" th:value="${figurine_edit.hauteur}"></td>
+                            <td><input type="number" step="0.01" name="hauteur" class="form-control" th:value="${figurine_edit.hauteur}" required></td>
                         </tr>
                         <tr>
                             <td><label>Longueur :</label></td>
-                            <td><input type="number" step="0.01"  name="longueur" th:value="${figurine_edit.longueur}"></td>
+                            <td><input type="number" step="0.01"  name="longueur" class="form-control" th:value="${figurine_edit.longueur}" required></td>
                         </tr>
                         <tr>
                             <td><label>Largeur :</label></td>
-                            <td><input type="text" step="0.01" name="largeur" th:value="${figurine_edit.largeur}"></td>
+                            <td><input type="text" step="0.01" name="largeur" class="form-control" th:value="${figurine_edit.largeur}" required></td>
                         </tr>
                         <tr>
                             <td><label>Quantité en magasin :</label></td>
-                            <td><input type="number" name="quantite_magasin" th:value="${figurine_edit.quantite_magasin}"></td>
+                            <td><input type="number" name="quantite_magasin" class="form-control" th:value="${figurine_edit.quantite_magasin}" required></td>
                         </tr>
                         <tr>
                             <td><label>Quantité en stock :</label></td>
-                            <td><input type="number" name="quantite_stock" th:value="${figurine_edit.quantite_stock}"></td>
+                            <td><input type="number" name="quantite_stock" class="form-control" th:value="${figurine_edit.quantite_stock}" required></td>
                         </tr>
                         <tr>
                             <td><label>Catégorie :</label></td>
                             <td>
-                                <select name="categorie_name">
+                                <select name="categorie_name" class="form-control" required>
                                     <th:block th:each="categorie : ${categories}">
                                         <option th:text="${categorie.nom}" th:selected="${categorie.nom==figurine_edit.categorie.nom}">...</option>
                                     </th:block>
@@ -75,7 +75,7 @@
                         <tr>
                             <td><label>Marque :</label></td>
                             <td>
-                                <select name="marque_name">
+                                <select name="marque_name" class="form-control" required>
                                     <th:block th:each="marque : ${marques}">
                                         <option th:text="${marque.nom}" th:selected="${marque.nom==figurine_edit.marque.nom}">...</option>
                                     </th:block>
@@ -86,14 +86,13 @@
                         <td><label>Image : </label></td>
                         <td style="width: 10%; text-align: center">
                             <img th:src="'/uploads/' + ${figurine_edit.image.id} + ${figurine_edit.image.extension}" style="max-height:150px">
-                            <input type="file" name="UploadNewImage" accept="image/*" value="Select an image">
+                            <input type="file" name="UploadNewImage" accept="image/*" class="btn-primary">
                         </td>
                     </tr>
                 </table>
                 <br />
-                <input type="submit" value="Edit">
+                <input type="submit" value="Edit" class=" btn btn-success">
                 <br />
-                <a th:href="@{/figurines}"><input type="button" value="Back to previous page"></a>
             </form>
         </div>
     </div>

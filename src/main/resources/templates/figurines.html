@@ -8,7 +8,11 @@
 <div layout:fragment="content" class="col-md-12">
     <div th:switch="${#authentication.getPrincipal().getRole()}">
         <div th:case="'ADMIN'">
-            <table>
+            <a th:href="@{/figurines/addFigurine}" class="float-right">
+                <input type="button" value="Add" class="btn btn-success">
+            </a>
+            <br>
+            <table class="table">
                 <tr>
                     <th style="text-align: center">Nom</th>
                     <th style="text-align: center">Image</th>
@@ -26,18 +30,17 @@
                         <td style="width: 15%; text-align: center" th:text="${figurine.quantite_magasin + figurine.quantite_stock}"></td>
                         <td style="width: 10%; text-align: center" th:text="${figurine.categorie.nom}"></td>
                         <td style="width: 10%; text-align: center" th:text="${figurine.marque.nom}"></td>
-                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/editFigurine/} + ${figurine.id}"><input type="button" value="Edit"></a> </td>
-                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/deleteFigurine/} + ${figurine.id}"><input type="button" value="Delete"></a> </td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/editFigurine/} + ${figurine.id}"><input type="button" value="Edit" class="btn btn-info"></a> </td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/deleteFigurine/} + ${figurine.id}"><input type="button" value="Delete" class="btn btn-info"></a> </td>
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/addFigurine/}"><input type="button" value="Add"></a>
-            <a th:href="@{/figurines/categories/}"><input type="button" value="Categories"></a>
-            <a th:href="@{/figurines/marques/}"><input type="button" value="Marques"></a>
-            <a th:href="@{/figurines/reservations/}"><input type="button" value="Réservations"></a>
         </div>
         <div th:case="'WORKER'">
-            <table>
+            <a th:href="@{/figurines/addFigurine}" class="float-right">
+                <input type="button" value="Add" class="btn btn-success">
+            </a>
+            <table class="table">
                 <tr>
                     <th style="text-align: center">Nom</th>
                     <th style="text-align: center">Image</th>
@@ -55,16 +58,34 @@
                         <td style="width: 15%; text-align: center" th:text="${figurine.quantite_magasin + figurine.quantite_stock}"></td>
                         <td style="width: 10%; text-align: center" th:text="${figurine.categorie.nom}"></td>
                         <td style="width: 10%; text-align: center" th:text="${figurine.marque.nom}"></td>
-                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/editFigurine/} + ${figurine.id}"><input type="button" value="Edit"></a> </td>
+                        <td style="width: 10%;text-align: center"><a th:href="@{/figurines/editFigurine/} + ${figurine.id}"><input type="button" value="Edit" class="btn btn-info"></a> </td>
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/addFigurine/}"><input type="button" value="Add"></a>
-            <a th:href="@{/figurines/categories/}"><input type="button" value="Categories"></a>
-            <a th:href="@{/figurines/marques/}"><input type="button" value="Marques"></a>
-            <a th:href="@{/figurines/reservations/}"><input type="button" value="Réservations"></a>
         </div>
         <div th:case="'CUSTOMER'">
+            <div>
+                <form th:action="@{/figurines/recherche}" method="get" >
+                    <label>Recherche : </label>
+                    <input type="text" name="recherche">
+                    <label>Catégorie :</label>
+                    <select name="categorie_name" required>
+                        <option selected>Tous</option>
+                        <th:block th:each="categorie : ${categories}">
+                            <option th:text="${categorie.nom}">...</option>
+                        </th:block>
+                    </select>
+
+                    <label>Marque :</label>
+                    <select name="marque_name" required>
+                        <option selected>Tous</option>
+                        <th:block th:each="marque : ${marques}">
+                            <option th:text="${marque.nom}">...</option>
+                        </th:block>
+                    </select>
+                    <input type="submit" value="Search" class="btn btn-primary btn-sm">
+                </form>
+            </div>
            <div class="row" style="padding-bottom: 50px;">
                <th:block th:each="figurine : ${figurines}">
                    <div class="col-md-4" style="height:300px" th:if="${figurine.quantite_magasin + figurine.quantite_stock !=0}">
@@ -76,12 +97,9 @@
                            <p th:text="${figurine.prix_ttc}" style="height: 20px"></p>
                            <p th:text="${figurine.description}" style="height: 50px"></p>
                            <form th:action="@{/figurines/reservation/} + ${figurine.id}" method="get">
-                               <input type="submit" value="Book">
+                               <input type="submit" value="Book" class="btn btn-info">
                            </form>
                        </div>
-                   </div>
-                   <div>
-                       <a th:href="@{/figurines/reservations/}"><input type="button" value="Réservations"></a>
                    </div>
                </th:block>
            </div>

@@ -21,15 +21,21 @@ public class AdminController {
 
     private EmployeeController employeeController;
 
+    private CategorieRepository categorieRepository;
+
+    private MarqueRepository marqueRepository;
+
     /**
      * Instantiates a new Admin controller.
      *
      * @param figurineRepository the figurine repository
      * @param employeeController the employee controller
      */
-    public AdminController(FigurineRepository figurineRepository, EmployeeController employeeController){
+    public AdminController(FigurineRepository figurineRepository, EmployeeController employeeController, MarqueRepository marqueRepository, CategorieRepository categorieRepository){
         this.figurineRepository = figurineRepository;
         this.employeeController = employeeController;
+        this.categorieRepository = categorieRepository;
+        this.marqueRepository=marqueRepository;
     }
 
     /**
@@ -66,6 +72,18 @@ public class AdminController {
         }
         figurineRepository.deleteById(id);
         return "redirect:/figurines";
+    }
+
+    @RequestMapping(value = "figurines/categories/delete/{id}")
+    public String deleteCategorie(@PathVariable("id") int id){
+        categorieRepository.deleteById(id);
+        return "redirect:/figurines/categories";
+    }
+
+    @RequestMapping(value = "figurines/marques/delete/{id}")
+    public String deleteMarque(@PathVariable("id") int id){
+        marqueRepository.deleteById(id);
+        return "redirect:/figurines/marques";
     }
 
 }

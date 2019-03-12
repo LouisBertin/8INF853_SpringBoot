@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 
 /**
@@ -25,15 +27,21 @@ public class ClientController {
 
     private ReservationRepository reservationRepository;
 
+    private MarqueRepository marqueRepository;
+
+    private CategorieRepository categorieRepository;
+
     /**
      * Instantiates a new Client controller.
      *
      * @param figurineRepository    the figurine repository
      * @param reservationRepository the reservation repository
      */
-    public  ClientController(FigurineRepository figurineRepository, ReservationRepository reservationRepository){
+    public  ClientController(FigurineRepository figurineRepository, ReservationRepository reservationRepository, MarqueRepository marqueRepository, CategorieRepository categorieRepository){
         this.figurineRepository = figurineRepository;
         this.reservationRepository=reservationRepository;
+        this.marqueRepository = marqueRepository;
+        this.categorieRepository = categorieRepository;
     }
 
     /**
@@ -52,6 +60,8 @@ public class ClientController {
             }
         }
         model.addAttribute("figurines", figurineRepository.findAll());
+        model.addAttribute("marques", marqueRepository.findAll());
+        model.addAttribute("categories", categorieRepository.findAll());
         return "figurines";
     }
 
@@ -151,4 +161,30 @@ public class ClientController {
         return "redirect:/figurines/reservations";
     }
 
+
+    @GetMapping(value="figurines/recherche")
+    public String displayRecherche(@RequestParam("recherche") String recherche,@RequestParam("marque_name") String marque_name,
+                                   @RequestParam("categorie_name") String categorie_name, Model model){
+        ArrayList<Figurine> figurineArrayList = new ArrayList<>();
+        for(Figurine figurine : figurineRepository.findAll()){
+            if(figurine.getNom().toLowerCase().contains(recherche.toLowerCase())){
+                if(figurine.getCategorie().getNom().equals(categorie_name) || categorie_name.equals("Tous")){
+                    if(figurine.getMarque().getNom().equals(marque_name) || marque_name.equals("Tous")){
+                        figurineArrayList.add(figurine);
+                    }
+                }
+            }
+        }
+
+        model.addAttribute("marques", marqueRepository.findAll());
+        model.addAttribute("categories", categorieRepository.findAll());
+        model.addAttribute("figurines_search", figurineArrayList);
+
+        return "recherche";
+    }
+
+    @PostMapping(value="figurines/recherche")
+    public String submitRecherche(){
+        return "recherche";
+    }
 }

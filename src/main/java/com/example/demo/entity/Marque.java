@@ -15,7 +15,7 @@ public class Marque {
 
     private String nom;
 
-    @OneToMany(mappedBy = "marque", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "marque", cascade = CascadeType.REMOVE)
     private Set<Figurine> figurines;
 
     public Integer getId() {

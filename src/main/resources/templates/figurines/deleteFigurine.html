@@ -12,7 +12,7 @@
         </div>
         <div th:case="*">
             <form th:object="${figurine_delete}" th:action="@{/figurines/deleteFigurine/} + ${figurine_delete.id}" th:method="delete">
-                <table>
+                <table class="table">
                         <tr>
                             <td><label>Nom :</label></td>
                             <td><label th:text="${figurine_delete.nom}"></label></td>
@@ -78,9 +78,8 @@
                         </tr>
                 </table>
                 <br />
-                <input type="submit" value="Delete">
+                <input type="submit" value="Delete" class="btn btn-success">
                 <br />
-                <a th:href="@{/figurines}"><input type="button" value="Back to previous page"></a>
             </form>
         </div>
     </div>

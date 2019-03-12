@@ -13,7 +13,7 @@
                 <tr>
                     <th style="text-align: center">Numéro de réservation</th>
                     <th style="text-align: center">Date d'expiration</th>
-                    <th style="text-align: center">Montant unitaire</th>
+                    <th style="text-align: center">Montant</th>
                     <th style="text-align: center">Quantité</th>
                     <th style="text-align: center">Client</th>
                     <th style="text-align: center"></th>
@@ -28,13 +28,12 @@
                         <td style="width: 25%; text-align: center" th:text="${reservation.user.name}"></td>
                         <td>
                             <form th:action="@{/figurines/reservation/edit/} + ${reservation.id}" method="post">
-                                <input type="submit" value="Edit">
+                                <input type="submit" value="Purchase" class="btn btn-info">
                             </form>
                         </td>
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page" class="btn btn-outline-dark"></a>
         </div>
 
         <div th:case="'WORKER'">
@@ -42,7 +41,7 @@
                 <tr>
                     <th style="text-align: center">Numéro de réservation</th>
                     <th style="text-align: center">Date d'expiration</th>
-                    <th style="text-align: center">Montant unitaire</th>
+                    <th style="text-align: center">Montant</th>
                     <th style="text-align: center">Quantité</th>
                     <th style="text-align: center">Client</th>
                     <th style="text-align: center"></th>
@@ -57,13 +56,12 @@
                         <td style="width: 25%; text-align: center" th:text="${reservation.user.name}"></td>
                         <td>
                             <form th:action="@{/figurines/reservation/edit/} + ${reservation.id}" method="post">
-                                <input type="submit" value="Edit">
+                                <input type="submit" value="Purchase" class="btn btn-info">
                             </form>
                         </td>
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page" class="btn btn-outline-dark"></a>
         </div>
 
         <div th:case="'CUSTOMER'">
@@ -71,7 +69,7 @@
                 <tr>
                     <th style="text-align: center">Numéro de réservation</th>
                     <th style="text-align: center">Date d'expiration</th>
-                    <th style="text-align: center">Montant unitaire</th>
+                    <th style="text-align: center">Montant</th>
                     <th style="text-align: center">Quantité</th>
                     <th style="text-align: center"></th>
                 </tr>
@@ -83,13 +81,12 @@
                         <td style="width: 25%; text-align: center" th:text="${reservation.quantite}"></td>
                         <td>
                             <form th:action="@{/figurines/reservation/cancel/} + ${reservation.id}" method="post">
-                                <input type="submit" value="Cancel">
+                                <input type="submit" value="Cancel" class="btn btn-info">
                              </form>
                         </td>
                     </tr>
                 </th:block>
             </table>
-            <a th:href="@{/figurines/}"><input type="button" value="Back to previous page" class="btn btn-outline-dark"></a>
         </div>
     </div>
 </div>

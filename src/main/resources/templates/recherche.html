@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <title>Figurines</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="col-md-12">
+    <div th:switch="${#authentication.getPrincipal().getRole()}">
+        <div th:case="'CUSTOMER'">
+            <div>
+                <form th:action="@{/figurines/recherche}" method="get">
+                    <label>Recherche : </label>
+                    <input type="text" name="recherche">
+                    <label>Catégorie :</label>
+                    <select name="categorie_name" required>
+                        <option selected>Tous</option>
+                        <th:block th:each="categorie : ${categories}">
+                            <option th:text="${categorie.nom}">...</option>
+                        </th:block>
+                    </select>
+
+                    <label>Marque :</label>
+                    <select name="marque_name" class="input-sm form-control" required>
+                        <option selected>Tous</option>
+                        <th:block th:each="marque : ${marques}">
+                            <option th:text="${marque.nom}">...</option>
+                        </th:block>
+                    </select>
+                    <input type="submit" value="Search" class="btn btn-primary btn-sm">
+                </form>
+            </div>
+            <div class="row" style="padding-bottom: 50px;">
+                <th:block th:each="figurine : ${figurines_search}">
+                    <div class="col-md-4" style="height:300px" th:if="${figurine.quantite_magasin + figurine.quantite_stock !=0}">
+                        <div th:if="${figurine.quantite_magasin + figurine.quantite_stock !=0}">
+                            <div style="height: 200px">
+                                <img th:src="'/uploads/' + ${figurine.id} + ${figurine.image.extension}" style="max-height: 150px">
+                            </div>
+                            <p th:text="${figurine.nom}" style="height: 20px"></p>
+                            <p th:text="${figurine.prix_ttc}" style="height: 20px"></p>
+                            <p th:text="${figurine.description}" style="height: 50px"></p>
+                            <form th:action="@{/figurines/reservation/} + ${figurine.id}" method="get">
+                                <input type="submit" value="Book" class="btn btn-info">
+                            </form>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
