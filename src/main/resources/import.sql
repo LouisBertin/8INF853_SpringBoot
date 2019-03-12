@@ -2,9 +2,9 @@ insert into role (id, name) values (1, "CUSTOMER");
 insert into role (id, name) values (2, "WORKER");
 insert into role (id, name) values (3, "ADMIN");
 
-insert into user (name, email, username, password, role_id) values ("louis", "bertin.louis7@gmail.com", "admin", "admin", 3);
-insert into user (name, email, username, password, role_id) values ("test", "test@gmail.com", "test", "test", 1);
-insert into user (name, email, username, password, role_id) values ("worker", "test@gmail.com", "worker", "worker", 2);
+insert into user (name, email, username, password, role_id) values ("louis", "bertin.louis7@gmail.com", "admin", "$2a$10$dUh83pgITqHVCtIYQaPE/eg/HBUeyjW4CqczyQKO8VzZVkkoQ.Wl2", 3);
+insert into user (name, email, username, password, role_id) values ("worker", "test@gmail.com", "worker", "$2a$10$zaTctNcC1Vrk7hfCJwRLCOXe2yvfUAn6X6sYnEW.UYGPKucHKGhGK", 2);
+insert into user (name, email, username, password, role_id) values ("customer", "customer@gmail.com", "customer", "$2a$10$WmD29sSVqnHxzyCDfVK0d.40xRP4xTbnx.UKd9Uh8VlYMx54GqCeS", 1);
 
 insert into categorie (nom) values ("Disney");
 insert into categorie (nom) values ("Super-Héros");

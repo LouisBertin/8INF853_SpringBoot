@@ -8,6 +8,8 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * The type App auth provider.
@@ -21,17 +23,20 @@ public class AppAuthProvider extends DaoAuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        // get form data
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
         String name = auth.getName();
         String password = auth.getCredentials()
                 .toString();
 
+        // get db user
         UserDetails user = userDetailsService.loadUserByUsername(name);
-        //TODO : use Bcrypt here
+        // check credentials
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (user == null) {
             throw new BadCredentialsException("Username/Password does not match for " + auth.getPrincipal());
         }
-        if (!password.equals(user.getPassword())) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Username/Password does not match for " + auth.getPrincipal());
         }
 
