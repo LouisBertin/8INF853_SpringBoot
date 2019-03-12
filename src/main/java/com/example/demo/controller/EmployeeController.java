@@ -213,7 +213,6 @@ public class EmployeeController {
 
         if(!UploadImage.getContentType().equals("image/jpeg") && !UploadImage.getContentType().equals("image/png")){
             rm.addAttribute("incorrectType", "Incorrect type of file!");
-            System.err.println(rm.toString());
             return "redirect:/figurines/addFigurine";
         }
 

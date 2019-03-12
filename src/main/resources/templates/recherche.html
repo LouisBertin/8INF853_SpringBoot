@@ -10,24 +10,31 @@
         <div th:case="'CUSTOMER'">
             <div>
                 <form th:action="@{/figurines/recherche}" method="get">
-                    <label>Recherche : </label>
-                    <input type="text" name="recherche">
-                    <label>Catégorie :</label>
-                    <select name="categorie_name" required>
-                        <option selected>Tous</option>
-                        <th:block th:each="categorie : ${categories}">
-                            <option th:text="${categorie.nom}">...</option>
-                        </th:block>
-                    </select>
-
-                    <label>Marque :</label>
-                    <select name="marque_name" class="input-sm form-control" required>
-                        <option selected>Tous</option>
-                        <th:block th:each="marque : ${marques}">
-                            <option th:text="${marque.nom}">...</option>
-                        </th:block>
-                    </select>
-                    <input type="submit" value="Search" class="btn btn-primary btn-sm">
+                    <div class="col-md-3" style="display: inline-block">
+                        <label>Nom :</label>
+                        <input type="text" name="recherche" class="form-control">
+                    </div>
+                    <div class="col-md-3" style="display: inline-block">
+                        <label>Catégorie :</label>
+                        <select name="categorie_name" class="form-control" required>
+                            <option selected>Tous</option>
+                            <th:block th:each="categorie : ${categories}">
+                                <option th:text="${categorie.nom}">...</option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="col-md-3" style="display: inline-block">
+                        <label>Marque :</label>
+                        <select name="marque_name" class="form-control" required>
+                            <option selected>Tous</option>
+                            <th:block th:each="marque : ${marques}">
+                                <option th:text="${marque.nom}">...</option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="col-md-2" style="display: inline-block">
+                        <input type="submit" value="Search" class="btn btn-info">
+                    </div>
                 </form>
             </div>
             <div class="row" style="padding-bottom: 50px;">
