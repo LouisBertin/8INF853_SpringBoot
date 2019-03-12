@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * The type Web security config.
@@ -74,5 +76,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
+    }
+
+    /**
+     * Password encoder password encoder.
+     *
+     * @return the password encoder
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
