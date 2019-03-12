@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
 </head>
-<body>
+<body th:classappend="${isHomepage} ? home : null">
 <header th:replace="layouts/fragments/header :: header"></header>
 
+<div class="overlay" th:if="${isHomepage}"></div>
 <main class="container">
     <div layout:fragment="content">
         <!-- ============================================================================ -->

@@ -18,7 +18,7 @@ public class FrontController {
      */
     @GetMapping("/")
     public String main(Model model) {
-        model.addAttribute("message", "toto!");
+        model.addAttribute("isHomepage", "isHomepage");
 
         return "front/index";
     }
